@@ -58,7 +58,7 @@ git push -u origin nombre-de-tu-rama
 **Ejemplo:**
 
 ```bash
-git push - uorigin feature/estructura-carpeta
+git push - u origin feature/estructura-carpeta
 ```
 
 5. ABRIR UN **PULL REQUEST**
