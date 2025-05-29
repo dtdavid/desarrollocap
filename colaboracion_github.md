@@ -12,6 +12,13 @@ cd tu-repo
    - Cada vez que empieces una nueva funcionalidad:
 
 ```bash
+git checkout main               # Cambiar a la rama principal
+git pull origin main            # Traer y fusionar los últimos cambios remotos
+```
+
+- Después creas una rama en tu terminal para trabajar sin machacar el repositorio:
+
+```bash
 git checkout -b nombre-de-tu-rama
 
 ```
@@ -45,25 +52,25 @@ git commit -m "feat: crear estructura inicial de carpetas para frontend"
 4. SUBIR LA RAMA A GITHUB
 
 ```bash
-git push origin nombre-de-tu-rama
+git push -u origin nombre-de-tu-rama
 ```
 
 **Ejemplo:**
 
 ```bash
-git push origin feature/estructura-carpeta
+git push - uorigin feature/estructura-carpeta
 ```
 
 5. ABRIR UN **PULL REQUEST**
 1. Ve al repositorio en GitHub
 
-1. Verás un botón que dice "Compare & pull request"
+1. Verás un botón que dice "**Compare & pull request**"
 
 1. En el comentario explica qué hiciste
 
 1. Elige que se fusione contra la rama main
 
-1. Crea el pull request
+1. Crea el \*_pull request_
 
 💡 Alguien del equipo revisa y aprueba (revisión por pares).
 

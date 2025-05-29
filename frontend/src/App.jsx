@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh w-full flex flex-col bg-celeste ">
       {/* Header y Footer estarán DENTRO del BrowserRouter que está en AppRoutes */}
       <AppRoutes />
     </div>

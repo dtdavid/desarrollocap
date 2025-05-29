@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -10,11 +11,14 @@ import CursosTipo from "../pages/CursosTipo";
 import CursoDetalle from "../pages/CursoDetalle";
 
 export default function AppRoutes() {
+  const token = localStorage.getItem("token");
+
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-dvh flex flex-col ">
         <Header />
-        <main className="flex-grow">
+        {token && <Navbar />} {/*solo mostramos el Navbar si está logueado */}
+        <main className="flex-grow overflow-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

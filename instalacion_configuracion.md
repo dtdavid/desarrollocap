@@ -35,3 +35,16 @@ content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"];
 @tailwind components;
 @tailwind utilities;
 ```
+
+### 🔄 Iniciar el servidor de desarrollo
+
+```bash
+npm run dev -- --host
+```
+
+```cpp
+➜  Local:   http://localhost:5173/
+➜  Network: http://192.168.X.XX:5173/
+```
+
+**Puedes usar tu móvil para ver el diseño en local, al ngresar la IP que te muestre en Network**
