@@ -3,7 +3,18 @@ export default {
   content: ["./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
-    extend: {},
+    extend: {
+       colors: {
+        rosa: '#F065AF',
+        celeste: '#BBE2F8',
+        'azul-claro': '#E4F7FE',
+        azul: '#0E9FE5',
+        'azul-oscuro': '#1D61AD',
+      },
+      height: {
+    'dvh': '100dvh',
+  }
+    },
   },
   plugins: [],
 }

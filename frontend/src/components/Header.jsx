@@ -7,7 +7,7 @@ export default function Header() {
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
       <div className="flex items-center gap-2">
         <Link to="/">
-          <img src={logo} alt="Logo OTEC" className="w-10 h-10" />
+          <img src={logo} alt="Logo OTEC" className="w-10 h-10 rounded-full object-cover" />
         </Link>
         <div className="text-sm text-gray-600">
           <div className="flex items-center gap-1">

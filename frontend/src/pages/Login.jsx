@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
@@ -30,25 +30,32 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin} className="p-4">
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="block mb-2 p-2 border"
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="block mb-4 p-2 border"
-      />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-        Iniciar Sesión
-      </button>
-    </form>
+    <div className="flex justify-center items-center min-h-dvh bg-azul-claro px-4">
+      <form onSubmit={handleLogin} className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+        <h2 className="text-xl font-semibold mb-4 text-center">Iniciar Sesión</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-3 p-2 border rounded"
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-4 p-2 border rounded"
+        />
+        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+          Iniciar Sesión
+        </button>
+        <p className="mt-4 text-sm text-center">
+          ¿No tienes cuenta?{" "}
+          <Link to="/registro" className="text-blue-600 hover:underline">Regístrate aquí</Link>
+        </p>
+      </form>
+    </div>
   );
 }
 
