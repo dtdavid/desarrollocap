@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "titulo": "Curso de Excel Básico",
+    "descripcion": "Aprende los fundamentos de Excel desde cero.",
+    "categoria": "Ofimática",
+    "imagen": "/public/images/excel_basico.jpg",
+    "precio": 19900,
+    "duracion": "20 horas",
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "titulo": "Curso de Primeros Auxilios",
+    "descripcion": "Capacitación para enfrentar emergencias médicas básicas.",
+    "categoria": "Salud",
+    "imagen": "/public/images/primeros_auxilios.jpg",
+    "precio": 25900,
+    "duracion": "15 horas",
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "titulo": "Prevención de Riesgos Laborales",
+    "descripcion": "Identifica y previene riesgos en entornos de trabajo.",
+    "categoria": "Seguridad",
+    "imagen": "/public/images/riesgos_laborales.jpg",
+    "precio": 29900,
+    "duracion": "25 horas",
+    "disponible": true
+  }
+]

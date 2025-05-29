@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ana Torres",
+    "email": "ana.torres@ejemplo.com",
+    "password": "123456", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ANA.TOKEN"
+  },
+  {
+    "id": 2,
+    "nombre": "Carlos Rivas",
+    "email": "carlos.rivas@ejemplo.com",
+    "password": "abcdef", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.CARLOS.TOKEN"
+  },
+  {
+    "id": 3,
+    "nombre": "Marcela Díaz",
+    "email": "marcela.diaz@ejemplo.com",
+    "password": "qwerty", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MARCELA.TOKEN"
+  }
+]
