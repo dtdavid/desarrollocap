@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import React from "react";
 import "./App.css";
+import Perfil from "./pages/Perfil";
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
       {/* Header y Footer estarán DENTRO del BrowserRouter que está en AppRoutes */}
       <AppRoutes />
     </div>
+  
   );
 }
 
 export default App;
-
