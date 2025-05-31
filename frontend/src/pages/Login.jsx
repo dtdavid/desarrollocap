@@ -23,7 +23,7 @@ function Login() {
     if (user) {
       localStorage.setItem("token", user.token);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/perfil");
+      navigate("/");
     } else {
       alert("Credenciales incorrectas");
     }
