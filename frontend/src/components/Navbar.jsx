@@ -16,10 +16,24 @@ export default function Navbar() {
   return (
     <nav className="bg-azul text-white p-2 flex justify-between px-4">
       <div className="flex gap-4 items-center">
+<<<<<<< HEAD
+        
+      {user ? (
+          <>
+            <span className="font-semibold">Hola, {user.nombre}</span>
+            <Link to="/perfil" className="hover:underline">Mi perfil</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="hover:underline">Iniciar sesión</Link>
+            <Link to="/registro" className="hover:underline">Registrarse</Link>
+          </>
+        )}
+=======
         {user && <span className="font-semibold">Hola, {user.nombre}</span>}
       {/*<Link to="/perfil" className="hover:underline">Mi perfil</Link>*/}
+>>>>>>> 9f8f6273dc2d5ea537fcb9f93711d596cf31fdba
       </div>
-      
       {user && (
         <button
           onClick={handleLogout}

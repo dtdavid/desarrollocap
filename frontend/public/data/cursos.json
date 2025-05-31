@@ -1,32 +1,87 @@
 [
   {
     "id": 1,
-    "titulo": "Curso de Excel Básico",
-    "descripcion": "Aprende los fundamentos de Excel desde cero.",
-    "categoria": "Ofimática",
-    "imagen": "/public/images/excel_basico.jpg",
+    "titulo": "Curso de React",
+    "descripcion": "Aprende los fundamentos de React desde cero.",
+    "categoria": "Programación",
+    "imagen": "../../src/assets/images/react.png",
     "precio": 19900,
     "duracion": "20 horas",
-    "disponible": true
+    "disponible": true,
+    "modalidad": "e-learning",
+    "docencia": "Clases los Lunes y Miércoles",
+    "fechaInicio": "15 mayo 2025",
+    "fechaFin": "15 junio 2025"
   },
   {
     "id": 2,
-    "titulo": "Curso de Primeros Auxilios",
-    "descripcion": "Capacitación para enfrentar emergencias médicas básicas.",
-    "categoria": "Salud",
-    "imagen": "/public/images/primeros_auxilios.jpg",
+    "titulo": "Curso de CSS Avanzado",
+    "descripcion": "Aprende css avanzado para mejorar tus diseños web.",
+    "categoria": "Diseño Web",
+    "imagen": "../../src/assets/images/css.png",
     "precio": 25900,
     "duracion": "15 horas",
-    "disponible": true
+    "disponible": true,
+    "modalidad": "e-learning",
+    "docencia": "Clases los Martes y Jueves",
+    "fechaInicio": "1 junio 2025",
+    "fechaFin": "15 julio 2025"
   },
   {
     "id": 3,
-    "titulo": "Prevención de Riesgos Laborales",
-    "descripcion": "Identifica y previene riesgos en entornos de trabajo.",
-    "categoria": "Seguridad",
-    "imagen": "/public/images/riesgos_laborales.jpg",
+    "titulo": "Curso de Node",
+    "descripcion": "Aprende a usar NodeJS para crear aplicaciones del lado del servidor.",
+    "categoria": "Programación",
+    "imagen": "../../src/assets/images/node.png",
     "precio": 29900,
     "duracion": "25 horas",
-    "disponible": true
+    "disponible": true,
+    "modalidad": "e-learning",
+    "docencia": "Clases los Miércoles y Viernes",
+    "fechaInicio": "20 mayo 2025",
+    "fechaFin": "30 junio 2025"
+  },
+  {
+    "id": 4,
+    "titulo": "Curso de Base de datos",
+    "descripcion": "Aprende a trabajar con base de datos con PostgreSQL",
+    "categoria": "SQL",
+    "imagen": "../../src/assets/images/postgresql.png",
+    "precio": 19900,
+    "duracion": "20 horas",
+    "disponible": true,
+    "modalidad": "e-learning",
+    "docencia": "Clases los Lunes y Miércoles",
+    "fechaInicio": "10 mayo 2025",
+    "fechaFin": "10 junio 2025"
+  },
+  {
+    "id": 5,
+    "titulo": "Curso de Backend con Express",
+    "descripcion": "Aprende programación backend con Express y NodeJS.",
+    "categoria": "Programación",
+    "imagen": "../../src/assets/images/express.png",
+    "precio": 25900,
+    "duracion": "15 horas",
+    "disponible": true,
+    "modalidad": "e-learning",
+    "docencia": "Clases los Martes y Jueves",
+    "fechaInicio": "5 junio 2025",
+    "fechaFin": "20 julio 2025"
+  },
+  {
+    "id": 6,
+    "titulo": "Curso de fundamentos de JavaScript",
+    "descripcion": "Aprende los fundamentos de JavaScript desde cero.",
+    "categoria": "Programación",
+    "imagen": "../../src/assets/images/JS.png",
+    "precio": 29900,
+    "duracion": "25 horas",
+    "disponible": true,
+    "modalidad": "e-learning",
+    "docencia": "Clases los Lunes y Viernes",
+    "fechaInicio": "15 mayo 2025",
+    "fechaFin": "30 junio 2025"
   }
 ]
+
