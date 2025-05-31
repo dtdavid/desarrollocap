@@ -17,14 +17,15 @@ export default function AppRoutes() {
     <BrowserRouter>
       <div className="min-h-dvh flex flex-col ">
         <Header />
-        <Navbar /> 
+        <Navbar />
         <main className="flex-grow overflow-auto">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/perfil" element={<Perfil />} />
-            <Route path="/carrito/:id" element={<Carrito />} />
+            <Route path="/carrito" element={<Carrito />} />
             <Route path="/cursos/:tipo" element={<CursosTipo />} />
             <Route path="/curso/:id" element={<CursoDetalle />} />
           </Routes>
@@ -34,4 +35,3 @@ export default function AppRoutes() {
     </BrowserRouter>
   );
 }
-
