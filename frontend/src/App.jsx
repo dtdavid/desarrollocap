@@ -4,6 +4,8 @@ import Footer from "./components/Footer";
 import React from "react";
 import "./App.css";
 import Perfil from "./pages/Perfil";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (

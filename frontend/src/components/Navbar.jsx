@@ -17,7 +17,7 @@ export default function Navbar() {
     <nav className="bg-azul text-white p-2 flex justify-between px-4">
       <div className="flex gap-4 items-center">
         {user && <span className="font-semibold">Hola, {user.nombre}</span>}
-        <Link to="/perfil" className="hover:underline">Mi perfil</Link>
+      {/*<Link to="/perfil" className="hover:underline">Mi perfil</Link>*/}
       </div>
       
       {user && (
