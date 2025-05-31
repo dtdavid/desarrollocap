@@ -59,6 +59,14 @@ function Register() {
           className="w-full mb-4 p-2 border rounded"
         />
 
+        <input
+          type="password"
+          placeholder="Confirmar Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-4 p-2 border rounded"
+        />
+
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
