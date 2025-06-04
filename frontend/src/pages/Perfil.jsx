@@ -31,6 +31,16 @@ const Perfil = () => {
       return;
     }
 
+// Lista de cursos (solo títulos)
+  const cursos = [
+    "REACT",
+    "FUNDAMENTOS DE JAVA SCRIPT",
+    "BASES DE DATOS PSQL"
+  ];
+// Guardar en localStorage
+  localStorage.setItem("listaCursos", JSON.stringify(cursos));
+
+
     // Petición al backend para obtener el perfil
     axios
       .get(`http://localhost:5000/api/usuarios/${localStorage.getItem("usuarioId")}`, {
@@ -83,6 +93,10 @@ const Perfil = () => {
         <button
           className="mt-auto bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded transition-colors"
           type="button"
+          onClick={() => {
+         localStorage.setItem("cursoSeleccionado", titulo);
+           navigate("/perfil/editar");
+  }}
         >
           Ir al curso
         </button>
@@ -157,6 +171,7 @@ const Perfil = () => {
 };
 
 export default Perfil;
+
 
 
 
