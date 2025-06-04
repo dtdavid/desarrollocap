@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -8,24 +8,30 @@ function Login() {
   const [usuarios, setUsuarios] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get("/data/usuarios.json")
-      .then(response => setUsuarios(response.data))
-      .catch(error => console.error("Error cargando usuarios:", error));
-  }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const user = usuarios.find(
-      (u) => u.email === email && u.password === password
-    );
 
-    if (user) {
-      localStorage.setItem("token", user.token);
-      localStorage.setItem("user", JSON.stringify(user));
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+      });
+
+      const { token } = response.data;
+
+      // Guardar token en localStorage
+      localStorage.setItem("token", token);
+
+      // Decodificar el payload (opcional) para extraer el rol
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      localStorage.setItem("rol", payload.rol);
+      localStorage.setItem("usuarioId", payload.id);
+
       navigate("/");
-    } else {
-      alert("Credenciales incorrectas");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Credenciales incorrectas o error en el servidor");
     }
   };
 
