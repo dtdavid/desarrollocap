@@ -1,27 +1,27 @@
 // backend/server.js
 import 'dotenv/config'; // Forma moderna de cargar dotenv con ES Modules
-
+//importamos las dependencias base del proyecto
 import express from 'express';
 import cors from 'cors';
-import pg from 'pg'; // Importa pg completo, luego desestructura si necesitas Pool
-const { Pool } = pg; // Desestructuramos Pool de pg
+import authRoutes from './routes/authRouthes.js';
+import loginRoutes from "./routes/login.routes.js";
+import perfilRoutes from "./routes/perfilRoutes.js";
+import usuariosRoutes from './routes/usuariosRoutes.js';
+import pool from './db/connection.js'; 
 
-const app = express();
+
+const app = express(); // instancia de la app de Express
 const PORT = process.env.PORT || 5000;
 
-// Configuración de la base de datos PostgreSQL
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-});
 
 // Middleware
-app.use(cors());
-app.use(express.json());
-
+app.use(cors()); //habilitamos cors para permitir peticiones desde el frontend
+app.use(express.json()); // Parseamos el cuerpo de las peticiones como JSON
+//rutas de autenticación
+app.use('/api/auth', authRoutes); // Ahora /api/auth/login está activa
+app.use("/", loginRoutes);
+app.use("/api/perfil", perfilRoutes); // Ruta para manejar el perfil de usuario
+app.use('/api', usuariosRoutes); // Ruta para manejar usuarios
 // Ruta de prueba para verificar conexión al backend y DB
 app.get('/', async (req, res) => {
     try {
@@ -36,16 +36,14 @@ app.get('/', async (req, res) => {
     }
 });
 
-// Aquí irán tus rutas de API, por ejemplo:
-// Si tienes archivos de rutas separados, tendrías que importarlos así:
-// import authRoutes from './routes/authRoutes.js'; // Nota el .js al final
-// app.use('/api/auth', authRoutes);
+// Aquí irán las rutas de API:
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor Express escuchando en http://localhost:${PORT}`);
 });
 
-// Exportar la instancia de la app para pruebas con Supertest (si es necesario)
-// module.exports = app; // Esto ya no es válido con ES Modules
+// Exportar la instancia de la app para pruebas con Supertest 
+
 export default app; // Usamos export default para exportar la app

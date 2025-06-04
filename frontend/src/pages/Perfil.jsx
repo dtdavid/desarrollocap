@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; 
 import { useNavigate, Link } from "react-router-dom";
 import {
   VscAccount,
@@ -11,17 +11,24 @@ import {
 import ImagenCursoReact from "../assets/images/react.png";
 import ImagenCursojs from "../assets/images/js.jpg";
 import ImagenCursopsql from "../assets/images/psql.png";
+import axios from "axios"; //  para hacer peticiones al backend
 
 const Perfil = () => {
   const navigate = useNavigate();
 
+  // estado para guardar la respuesta del backend
+  const [perfil, setPerfil] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const usuario = JSON.parse(localStorage.getItem("user"));
+    
 
-    if (!token || !usuario) {
+    if (!token) {
       alert("Debes loguearte antes de acceder a tu perfil.");
       navigate("/login");
+      return;
     }
 
 // Lista de cursos (solo títulos)
@@ -32,8 +39,30 @@ const Perfil = () => {
   ];
 // Guardar en localStorage
   localStorage.setItem("listaCursos", JSON.stringify(cursos));
-}, [navigate]);
 
+
+    // Petición al backend para obtener el perfil
+    axios
+      .get(`http://localhost:5000/api/usuarios/${localStorage.getItem("usuarioId")}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setPerfil(res.data.usuario); // guardamos usuario desde backend
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error al obtener perfil:", err);
+        setError("Token inválido o expirado.");
+        setLoading(false);
+        
+      // Limpio token y usuario para evitar que Navbar piense que está logueado
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      });
+  }, [navigate]);
 
   const CursoCard = ({ img, titulo, inicio, termino }) => (
     <div className="flex flex-col border rounded-lg shadow-md overflow-hidden max-w-sm w-full">
@@ -78,7 +107,9 @@ const Perfil = () => {
   return (
     <>
       <nav className="bg-blue-700 text-white p-4 flex justify-between items-center">
-        <h2 className="font-bold text-lg">Bienvenido a tu perfil</h2>
+        <h2 className="font-bold text-lg">
+          Bienvenido a tu perfil{perfil ? `, ${perfil.nombre}` : ""}
+        </h2>
         <div className="flex gap-6">
           <Link
             to="/perfil/editar"
@@ -102,6 +133,18 @@ const Perfil = () => {
       </nav>
 
       <main className="container mx-auto px-4 mt-8 mb-12">
+        {loading && <p className="text-center font-semibold">Cargando perfil...</p>}
+        {error && (
+          <p className="text-red-600 text-center font-semibold">{error}</p>
+        )}
+        {!loading && perfil && (
+          <section className="mb-8 text-center">
+            <h3 className="text-2xl font-semibold mb-2">Hola, {perfil.nombre}</h3>
+            <p>Email: {perfil.email}</p>
+            <p>Rol: {perfil.rol}</p>
+          </section>
+        )}
+
         <div className="flex flex-wrap justify-center gap-8">
           <CursoCard
             img={ImagenCursoReact}
@@ -128,6 +171,8 @@ const Perfil = () => {
 };
 
 export default Perfil;
+
+
 
 
 
