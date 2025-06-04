@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // 🔧 añadido useState
+import { useEffect, useState } from "react"; 
 import { useNavigate, Link } from "react-router-dom";
 import {
   VscAccount,
@@ -19,9 +19,11 @@ const Perfil = () => {
   // estado para guardar la respuesta del backend
   const [perfil, setPerfil] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    
 
     if (!token) {
       alert("Debes loguearte antes de acceder a tu perfil.");
@@ -31,18 +33,24 @@ const Perfil = () => {
 
     // Petición al backend para obtener el perfil
     axios
-      .get("http://localhost:5000/perfil", {
+      .get(`http://localhost:5000/api/usuarios/${localStorage.getItem("usuarioId")}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         setPerfil(res.data.usuario); // guardamos usuario desde backend
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Error al obtener perfil:", err);
         setError("Token inválido o expirado.");
-        navigate("/login");
+        setLoading(false);
+        
+      // Limpio token y usuario para evitar que Navbar piense que está logueado
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
       });
   }, [navigate]);
 
@@ -86,7 +94,7 @@ const Perfil = () => {
     <>
       <nav className="bg-blue-700 text-white p-4 flex justify-between items-center">
         <h2 className="font-bold text-lg">
-          Bienvenido a tu perfil{perfil ? `, ${perfil.rol}` : ""}
+          Bienvenido a tu perfil{perfil ? `, ${perfil.nombre}` : ""}
         </h2>
         <div className="flex gap-6">
           <Link
@@ -111,8 +119,16 @@ const Perfil = () => {
       </nav>
 
       <main className="container mx-auto px-4 mt-8 mb-12">
+        {loading && <p className="text-center font-semibold">Cargando perfil...</p>}
         {error && (
           <p className="text-red-600 text-center font-semibold">{error}</p>
+        )}
+        {!loading && perfil && (
+          <section className="mb-8 text-center">
+            <h3 className="text-2xl font-semibold mb-2">Hola, {perfil.nombre}</h3>
+            <p>Email: {perfil.email}</p>
+            <p>Rol: {perfil.rol}</p>
+          </section>
         )}
 
         <div className="flex flex-wrap justify-center gap-8">

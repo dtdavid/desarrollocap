@@ -28,6 +28,14 @@ function Login() {
       localStorage.setItem("rol", payload.rol);
       localStorage.setItem("usuarioId", payload.id);
 
+      const perfilResponse = await axios.get(`http://localhost:5000/api/usuarios/${payload.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    localStorage.setItem("user", JSON.stringify(perfilResponse.data));
+
       navigate("/");
     } catch (error) {
       console.error("Error al iniciar sesión:", error);

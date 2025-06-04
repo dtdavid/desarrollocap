@@ -1,14 +1,11 @@
+// routes/perfilRoutes.js
 import express from "express";
-import { verificarToken } from "../middlewares/verificarToken.js"; // Protege la ruta
+import { verificarToken } from "../middlewares/verificarToken.js";
+import { getPerfilUsuario } from "../controllers/usuariosController.js";
 
 const router = express.Router();
 
-// Ruta GET: /api/perfil
-router.get("/", verificarToken, (req, res) => {
-  res.json({
-    mensaje: "Acceso autorizado al perfil",
-    usuario: req.user, // Contiene id y rol gracias al middleware
-  });
-});
+router.get("/", verificarToken, getPerfilUsuario); // GET /api/perfil
 
 export default router;
+

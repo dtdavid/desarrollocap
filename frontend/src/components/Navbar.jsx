@@ -5,7 +5,9 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   // Recuperamos el usuario desde localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+  // Si hay token, asumimos que el usuario está logueado
+  const user = token ? JSON.parse(localStorage.getItem("user")) : null;
 
   const handleLogout = () => {
     localStorage.removeItem("token");

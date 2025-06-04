@@ -3,13 +3,14 @@
 -- Tabla de usuarios
 CREATE TABLE Usuarios (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100),
-    apellido VARCHAR(100),
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     fecha_registro DATE DEFAULT CURRENT_DATE,
     activo BOOLEAN DEFAULT TRUE,
-    rol VARCHAR(20) CHECK (rol IN ('administrador', 'docente', 'estudiante')) NOT NULL
+    rol VARCHAR(20) DEFAULT 'estudiante' 
+        CHECK (rol IN ('administrador', 'docente', 'estudiante')) NOT NULL
 );
 
 -- Perfil extendido del usuario

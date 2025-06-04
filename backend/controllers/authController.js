@@ -66,3 +66,44 @@ export const login = async (req, res) => {
     res.status(500).json({ mensaje: 'Error en el servidor' });
   }
 };
+
+export const register = async (req, res) => {
+  const { nombre, apellido, email, password, rol = "estudiante" } = req.body;
+
+  if (!nombre || !apellido || !email || !password) {
+    return res.status(400).json({ mensaje: "Faltan campos obligatorios" });
+  }
+
+  if (!["estudiante", "docente"].includes(rol)) {
+    return res.status(400).json({ mensaje: "Rol inválido" });
+  }
+
+  try {
+    const existe = await pool.query("SELECT * FROM Usuarios WHERE email = $1", [email]);
+    if (existe.rows.length > 0) {
+      return res.status(400).json({ mensaje: "Email ya registrado" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashed = await bcrypt.hash(password, salt);
+
+    const nuevo = await pool.query(
+      `INSERT INTO Usuarios (nombre, apellido, email, password, rol)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING id, nombre, apellido, email, rol`,
+      [nombre, apellido, email, hashed, rol]
+    );
+
+    const usuario = nuevo.rows[0];
+
+    const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.status(201).json({ token, usuario });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ mensaje: "Error interno del servidor" });
+  }
+};
