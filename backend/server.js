@@ -6,6 +6,7 @@ import cors from 'cors';
 import authRoutes from './routes/authRouthes.js';
 import loginRoutes from "./routes/login.routes.js";
 import perfilRoutes from "./routes/perfilRoutes.js";
+import usuariosRoutes from './routes/usuariosRoutes.js';
 import pool from './db/connection.js'; 
 
 
@@ -20,6 +21,7 @@ app.use(express.json()); // Parseamos el cuerpo de las peticiones como JSON
 app.use('/api/auth', authRoutes); // Ahora /api/auth/login está activa
 app.use("/", loginRoutes);
 app.use("/api/perfil", perfilRoutes); // Ruta para manejar el perfil de usuario
+app.use('/api', usuariosRoutes); // Ruta para manejar usuarios
 // Ruta de prueba para verificar conexión al backend y DB
 app.get('/', async (req, res) => {
     try {

@@ -1,33 +1,46 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [rol, setRol] = useState("estudiante");
+
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!nombre || !email || !password) {
-      alert("Por favor, completa todos los campos");
-      return;
+    if (!nombre || !apellido || !email || !password || !password2) {
+      return alert("Por favor completa todos los campos.");
     }
 
-    // se guarda el nuevo usuario en localStorage o hacer una petición a tu API
-    const nuevoUsuario = {
-      nombre,
-      email,
-      password,
-      token: Date.now().toString(), // token falso solo para prueba
-    };
+    if (password !== password2) {
+      return alert("Las contraseñas no coinciden.");
+    }
 
-    // de momento guardamos en localStorage
-    localStorage.setItem("token", nuevoUsuario.token);
-    localStorage.setItem("user", JSON.stringify(nuevoUsuario));
+    try {
+      const res = await axios.post("http://localhost:5000/api/register", {
+        nombre,
+        apellido,
+        email,
+        password,
+        rol,
+      });
 
-    navigate("/perfil");
+      const { token, usuario } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(usuario));
+
+      navigate("/perfil");
+    } catch (error) {
+      console.error("Error en el registro:", error);
+      alert(error.response?.data?.mensaje || "Error en el servidor");
+    }
   };
 
   return (
@@ -37,9 +50,17 @@ function Register() {
 
         <input
           type="text"
-          placeholder="Nombre completo"
+          placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
+          className="w-full mb-3 p-2 border rounded"
+        />
+
+        <input
+          type="text"
+          placeholder="Apellido"
+          value={apellido}
+          onChange={(e) => setApellido(e.target.value)}
           className="w-full mb-3 p-2 border rounded"
         />
 
@@ -51,19 +72,28 @@ function Register() {
           className="w-full mb-3 p-2 border rounded"
         />
 
+        <select
+          value={rol}
+          onChange={(e) => setRol(e.target.value)}
+          className="w-full mb-3 p-2 border rounded"
+        >
+          <option value="estudiante">Estudiante</option>
+          <option value="docente">Docente</option>
+        </select>
+
         <input
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
+          className="w-full mb-3 p-2 border rounded"
         />
 
         <input
           type="password"
-          placeholder="Confirmar Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Confirmar contraseña"
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
           className="w-full mb-4 p-2 border rounded"
         />
 
@@ -73,17 +103,11 @@ function Register() {
         >
           Registrarse
         </button>
-
-        <p className="mt-4 text-sm text-center text-gray-600">
-          ¿Ya tienes cuenta?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">
-            Inicia sesión aquí
-          </a>
-        </p>
       </form>
     </div>
   );
 }
 
 export default Register;
+
 
