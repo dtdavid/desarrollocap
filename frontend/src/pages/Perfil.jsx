@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; // 🔧 añadido useState
 import { useNavigate, Link } from "react-router-dom";
 import {
   VscAccount,
@@ -11,18 +11,39 @@ import {
 import ImagenCursoReact from "../assets/images/react.png";
 import ImagenCursojs from "../assets/images/js.jpg";
 import ImagenCursopsql from "../assets/images/psql.png";
+import axios from "axios"; //  para hacer peticiones al backend
 
 const Perfil = () => {
   const navigate = useNavigate();
 
+  // estado para guardar la respuesta del backend
+  const [perfil, setPerfil] = useState(null);
+  const [error, setError] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const usuario = JSON.parse(localStorage.getItem("user"));
 
-    if (!token || !usuario) {
+    if (!token) {
       alert("Debes loguearte antes de acceder a tu perfil.");
       navigate("/login");
+      return;
     }
+
+    // Petición al backend para obtener el perfil
+    axios
+      .get("http://localhost:5000/perfil", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setPerfil(res.data.usuario); // guardamos usuario desde backend
+      })
+      .catch((err) => {
+        console.error("Error al obtener perfil:", err);
+        setError("Token inválido o expirado.");
+        navigate("/login");
+      });
   }, [navigate]);
 
   const CursoCard = ({ img, titulo, inicio, termino }) => (
@@ -64,7 +85,9 @@ const Perfil = () => {
   return (
     <>
       <nav className="bg-blue-700 text-white p-4 flex justify-between items-center">
-        <h2 className="font-bold text-lg">Bienvenido a tu perfil</h2>
+        <h2 className="font-bold text-lg">
+          Bienvenido a tu perfil{perfil ? `, ${perfil.rol}` : ""}
+        </h2>
         <div className="flex gap-6">
           <Link
             to="/perfil/editar"
@@ -88,6 +111,10 @@ const Perfil = () => {
       </nav>
 
       <main className="container mx-auto px-4 mt-8 mb-12">
+        {error && (
+          <p className="text-red-600 text-center font-semibold">{error}</p>
+        )}
+
         <div className="flex flex-wrap justify-center gap-8">
           <CursoCard
             img={ImagenCursoReact}
@@ -114,6 +141,7 @@ const Perfil = () => {
 };
 
 export default Perfil;
+
 
 
 
