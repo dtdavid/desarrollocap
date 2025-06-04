@@ -23,7 +23,17 @@ const Perfil = () => {
       alert("Debes loguearte antes de acceder a tu perfil.");
       navigate("/login");
     }
-  }, [navigate]);
+
+// Lista de cursos (solo títulos)
+  const cursos = [
+    "REACT",
+    "FUNDAMENTOS DE JAVA SCRIPT",
+    "BASES DE DATOS PSQL"
+  ];
+// Guardar en localStorage
+  localStorage.setItem("listaCursos", JSON.stringify(cursos));
+}, [navigate]);
+
 
   const CursoCard = ({ img, titulo, inicio, termino }) => (
     <div className="flex flex-col border rounded-lg shadow-md overflow-hidden max-w-sm w-full">
@@ -54,6 +64,10 @@ const Perfil = () => {
         <button
           className="mt-auto bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded transition-colors"
           type="button"
+          onClick={() => {
+         localStorage.setItem("cursoSeleccionado", titulo);
+           navigate("/perfil/editar");
+  }}
         >
           Ir al curso
         </button>
