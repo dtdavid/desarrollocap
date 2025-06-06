@@ -95,7 +95,7 @@ const Perfil = () => {
           type="button"
           onClick={() => {
          localStorage.setItem("cursoSeleccionado", titulo);
-           navigate("/perfil/editar");
+           navigate("/perfil");
   }}
         >
           Ir al curso
