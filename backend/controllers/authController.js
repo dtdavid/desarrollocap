@@ -79,7 +79,7 @@ export const register = async (req, res) => {
   }
 
   try {
-    const existe = await pool.query("SELECT * FROM Usuarios WHERE email = $1", [email]);
+    const existe = await pool.query("SELECT * FROM usuarios WHERE email = $1", [email]);
     if (existe.rows.length > 0) {
       return res.status(400).json({ mensaje: "Email ya registrado" });
     }
@@ -88,7 +88,7 @@ export const register = async (req, res) => {
     const hashed = await bcrypt.hash(password, salt);
 
     const nuevo = await pool.query(
-      `INSERT INTO Usuarios (nombre, apellido, email, password, rol)
+      `INSERT INTO usuarios (nombre, apellido, email, password, rol)
        VALUES ($1, $2, $3, $4, $5)
        RETURNING id, nombre, apellido, email, rol`,
       [nombre, apellido, email, hashed, rol]
