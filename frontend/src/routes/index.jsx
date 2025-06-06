@@ -10,6 +10,7 @@ import Carrito from "../pages/Carrito";
 import CursosTipo from "../pages/CursosTipo";
 import CursoDetalle from "../pages/CursoDetalle";
 import EditarPerfil from "../pages/EditarPerfil";
+import Certificados from "../pages/Certificados";
 
 export default function AppRoutes() {
   const token = localStorage.getItem("token");
@@ -27,6 +28,7 @@ export default function AppRoutes() {
             <Route path="/registro" element={<Register />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/perfil/editar" element={<EditarPerfil />} />
+            <Route path="/perfil/certificados" element={<Certificados />} />
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/cursos/:tipo" element={<CursosTipo />} />
             <Route path="/curso/:id" element={<CursoDetalle />} />
