@@ -1,6 +1,7 @@
 // backend/server.js
 import 'dotenv/config'; // Forma moderna de cargar dotenv con ES Modules
 //importamos las dependencias base del proyecto
+console.log("JWT_SECRET cargado:", process.env.JWT_SECRET)
 import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRouthes.js';
@@ -8,6 +9,14 @@ import loginRoutes from "./routes/login.routes.js";
 import perfilRoutes from "./routes/perfilRoutes.js";
 import usuariosRoutes from './routes/usuariosRoutes.js';
 import pool from './db/connection.js'; 
+
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('Error conectando a la base de datos:', err);
+  } else {
+    console.log('Conexión exitosa a PostgreSQL:', res.rows[0]);
+  }
+});
 
 
 const app = express(); // instancia de la app de Express
