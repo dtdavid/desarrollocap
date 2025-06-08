@@ -14,6 +14,7 @@ import Certificados from "../pages/Certificados";
 
 import { categoriesData } from "../pages/comunidad/data";
 import Forum from "../pages/comunidad/Forum";
+import PanelCurso from "../pages/PanelCurso";
 
 
 
@@ -37,6 +38,7 @@ export default function AppRoutes() {
             <Route path="/perfil/editar" element={<EditarPerfil />} />
             <Route path="/perfil/certificados" element={<Certificados />} />
             <Route path="/comunidad" element = { <Forum categories={categoriesData} />} />
+            <Route path="/perfil/curso" element = {<PanelCurso />} />
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/cursos/:tipo" element={<CursosTipo />} />
             <Route path="/curso/:id" element={<CursoDetalle />} />
