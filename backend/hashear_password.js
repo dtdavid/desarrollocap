@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
 
-const contraseña = '1234';
-const hash = await bcrypt.hash(contraseña, 10);
+const password = 'David@11'; // la contraseña que quieras hashear
+const hash = await bcrypt.hash(password, 10);
 console.log(hash);
+
 
 
 

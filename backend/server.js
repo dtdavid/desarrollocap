@@ -3,8 +3,8 @@ import 'dotenv/config'; // Forma moderna de cargar dotenv con ES Modules
 //importamos las dependencias base del proyecto
 import express from 'express';
 import cors from 'cors';
-import authRoutes from './routes/authRouthes.js';
-import loginRoutes from "./routes/login.routes.js";
+import registerRoutes from './routes/registerRoutes.js';
+import loginRoutes from "./routes/loginRoutes.js";
 import perfilRoutes from "./routes/perfilRoutes.js";
 import usuariosRoutes from './routes/usuariosRoutes.js';
 import pool from './db/connection.js'; 
@@ -18,10 +18,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors()); //habilitamos cors para permitir peticiones desde el frontend
 app.use(express.json()); // Parseamos el cuerpo de las peticiones como JSON
 //rutas de autenticación
-app.use('/api/auth', authRoutes); // Ahora /api/auth/login está activa
-app.use("/", loginRoutes);
+app.use('/api/auth', loginRoutes); // Ahora /api/auth/login está activa
+app.use('/api/auth', registerRoutes); // Ahora /api/auth/register está activa
 app.use("/api/perfil", perfilRoutes); // Ruta para manejar el perfil de usuario
-app.use('/api', usuariosRoutes); // Ruta para manejar usuarios
+app.use('/api/usuarios', usuariosRoutes); // Ruta para manejar usuarios
 // Ruta de prueba para verificar conexión al backend y DB
 app.get('/', async (req, res) => {
     try {
