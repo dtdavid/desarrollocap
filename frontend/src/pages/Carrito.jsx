@@ -1,7 +1,18 @@
 import { useCarrito } from "../context/CarritoContext";
+import { useNavigate } from "react-router-dom";
 
 const Carrito = () => {
   const { carrito, eliminarDelCarrito, vaciarCarrito } = useCarrito();
+  const navigate = useNavigate();
+
+  const handleComprar = () => {
+    if (carrito.length === 0) {
+      alert("Tu carrito está vacío.");
+      return;
+    }
+    // Navegar a la página de checkout o proceso de compra
+    navigate("/checkout");
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -30,12 +41,20 @@ const Carrito = () => {
               </li>
             ))}
           </ul>
-          <button
-            onClick={vaciarCarrito}
-            className="mt-6 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded"
-          >
-            Vaciar carrito
-          </button>
+          <div className="flex gap-4 mt-6">
+            <button
+              onClick={vaciarCarrito}
+              className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded"
+            >
+              Vaciar carrito
+            </button>
+            <button
+              onClick={handleComprar}
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+            >
+              Comprar
+            </button>
+          </div>
         </>
       )}
     </div>

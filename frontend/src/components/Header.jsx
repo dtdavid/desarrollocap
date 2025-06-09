@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { FaUser, FaShoppingCart, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { AuthContext } from "../context/AuthContext"; // ✅ importante
 import logo from "../assets/images/logo.png";
 
 export default function Header() {
+  const { isAuthenticated } = useContext(AuthContext); // ✅ ahora dinámico
+
   return (
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
       <div className="flex items-center gap-2">
         <Link to="/">
-          <img src={logo} alt="Logo OTEC" className="w-10 h-10 rounded-full object-cover" />
+          <img
+            src={logo}
+            alt="Logo OTEC"
+            className="w-10 h-10 rounded-full object-cover"
+          />
         </Link>
         <div className="text-sm text-gray-600">
           <div className="flex items-center gap-1">
@@ -18,11 +26,17 @@ export default function Header() {
           </div>
         </div>
       </div>
+
       <div className="flex items-center gap-4">
-        <Link to="/login"><FaUser size={20} /></Link>
-        <Link to="/carrito"><FaShoppingCart size={20} /></Link>
+        {!isAuthenticated && (
+          <Link to="/login">
+            <FaUser size={20} />
+          </Link>
+        )}
+        <Link to="/carrito">
+          <FaShoppingCart size={20} />
+        </Link>
       </div>
     </header>
   );
 }
-

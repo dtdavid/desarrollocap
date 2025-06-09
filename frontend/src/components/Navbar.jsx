@@ -24,12 +24,12 @@ export default function Navbar() {
             <Link to="/perfil" className="hover:underline">
               Mi perfil
             </Link>
-          </>
-        ) : (
-          <>
             <Link to="/home" className="hover:underline">
               Inicio
             </Link>
+          </>
+        ) : (
+          <>
             <Link to="/login" className="hover:underline">
               Iniciar sesión
             </Link>

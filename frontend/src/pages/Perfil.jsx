@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
   VscAccount,
@@ -23,7 +23,6 @@ const Perfil = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    
 
     if (!token) {
       alert("Debes loguearte antes de acceder a tu perfil.");
@@ -31,23 +30,27 @@ const Perfil = () => {
       return;
     }
 
-// Lista de cursos (solo títulos)
-  const cursos = [
-    "REACT",
-    "FUNDAMENTOS DE JAVA SCRIPT",
-    "BASES DE DATOS PSQL"
-  ];
-// Guardar en localStorage
-  localStorage.setItem("listaCursos", JSON.stringify(cursos));
-
+    // Lista de cursos (solo títulos)
+    const cursos = [
+      "REACT",
+      "FUNDAMENTOS DE JAVA SCRIPT",
+      "BASES DE DATOS PSQL",
+    ];
+    // Guardar en localStorage
+    localStorage.setItem("listaCursos", JSON.stringify(cursos));
 
     // Petición al backend para obtener el perfil
     axios
-      .get(`http://localhost:5000/api/usuarios/${localStorage.getItem("usuarioId")}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `http://localhost:5000/api/usuarios/${localStorage.getItem(
+          "usuarioId"
+        )}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         setPerfil(res.data.usuario); // guardamos usuario desde backend
         setLoading(false);
@@ -56,11 +59,10 @@ const Perfil = () => {
         console.error("Error al obtener perfil:", err);
         setError("Token inválido o expirado.");
         setLoading(false);
-        
-      // Limpio token y usuario para evitar que Navbar piense que está logueado
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
 
+        // Limpio token y usuario para evitar que Navbar piense que está logueado
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
       });
   }, [navigate]);
 
@@ -94,9 +96,9 @@ const Perfil = () => {
           className="mt-auto bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded transition-colors"
           type="button"
           onClick={() => {
-         localStorage.setItem("cursoSeleccionado", titulo);
-           navigate("/perfil/curso");
-  }}
+            localStorage.setItem("cursoSeleccionado", titulo);
+            navigate("/perfil/curso");
+          }}
         >
           Ir al curso
         </button>
@@ -133,13 +135,17 @@ const Perfil = () => {
       </nav>
 
       <main className="container mx-auto px-4 mt-8 mb-12">
-        {loading && <p className="text-center font-semibold">Cargando perfil...</p>}
+        {loading && (
+          <p className="text-center font-semibold">Cargando perfil...</p>
+        )}
         {error && (
           <p className="text-red-600 text-center font-semibold">{error}</p>
         )}
         {!loading && perfil && (
           <section className="mb-8 text-center">
-            <h3 className="text-2xl font-semibold mb-2">Hola, {perfil.nombre}</h3>
+            <h3 className="text-2xl font-semibold mb-2">
+              Hola, {perfil.nombre}
+            </h3>
             <p>Email: {perfil.email}</p>
             <p>Rol: {perfil.rol}</p>
           </section>
@@ -171,8 +177,3 @@ const Perfil = () => {
 };
 
 export default Perfil;
-
-
-
-
-
