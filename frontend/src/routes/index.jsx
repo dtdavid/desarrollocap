@@ -16,10 +16,6 @@ import { categoriesData } from "../pages/comunidad/data";
 import Forum from "../pages/comunidad/Forum";
 import PanelCurso from "../pages/PanelCurso";
 
-
-
-
-
 export default function AppRoutes() {
   const token = localStorage.getItem("token");
 
