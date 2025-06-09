@@ -5,6 +5,6 @@ import { getUsuarioById } from '../controllers/usuariosController.js';
 const router = express.Router();
 
 // Ruta GET para usuario/:id
-router.get('/usuarios/:id', getUsuarioById);
+router.get('/:id', getUsuarioById);
 
 export default router;
