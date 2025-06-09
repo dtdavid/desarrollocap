@@ -25,10 +25,17 @@ const PORT = process.env.PORT || 5000;
 app.use(cors()); //habilitamos cors para permitir peticiones desde el frontend
 app.use(express.json()); // Parseamos el cuerpo de las peticiones como JSON
 //rutas de autenticación
+<<<<<<< HEAD
 app.use("/api/auth", authRoutes); // Ahora /api/auth/login está activa
 app.use("/", loginRoutes);
 app.use("/api/perfil", perfilRoutes); // Ruta para manejar el perfil de usuario
 app.use("/api", usuariosRoutes); // Ruta para manejar usuarios
+=======
+app.use('/api/auth', loginRoutes); // Ahora /api/auth/login está activa
+app.use('/api/auth', registerRoutes); // Ahora /api/auth/register está activa
+app.use("/api/perfil", perfilRoutes); // Ruta para manejar el perfil de usuario
+app.use('/api/usuarios', usuariosRoutes); // Ruta para manejar usuarios
+>>>>>>> 98c5a61c57af69580236ca9c5be56bd45bcac423
 // Ruta de prueba para verificar conexión al backend y DB
 app.get("/", async (req, res) => {
   try {

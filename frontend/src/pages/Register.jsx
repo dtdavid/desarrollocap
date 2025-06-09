@@ -29,6 +29,7 @@ function Register() {
         apellido,
         email,
         password,
+        password2,
         rol,
       });
 
