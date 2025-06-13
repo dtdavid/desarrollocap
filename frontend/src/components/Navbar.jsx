@@ -39,23 +39,6 @@ export default function Navbar() {
           </>
         )}
       </div>
-      {user && (
-        <button
-          onClick={handleLogout}
-          className="relative group p-1 rounded hover:bg-red-600 transition-colors"
-          aria-label="Cerrar sesión"
-        >
-          <FiLogOut size={20} className="text-white" />
-          <span
-            className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 
-                       bg-gray-700 text-white text-xs rounded px-2 py-1 
-                       opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                       transition-opacity pointer-events-none whitespace-nowrap"
-          >
-            Cerrar sesión
-          </span>
-        </button>
-      )}
     </nav>
   );
 }

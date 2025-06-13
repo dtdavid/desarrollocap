@@ -43,6 +43,7 @@ CREATE TABLE Cursos (
     estado VARCHAR(50)
 );
 
+
 -- Inscripciones
 CREATE TABLE Inscripciones (
     id SERIAL PRIMARY KEY,
@@ -82,11 +83,14 @@ CREATE TABLE Mensajes (
     leido BOOLEAN DEFAULT FALSE
 );
 
+
+
+
 -- Insert de administrador
 INSERT INTO Usuarios (nombre, apellido, email, password, rol) 
-VALUES ('David', 'Docampo', 'admin@otec.com', '$2b$10$CONTRASEÑA_HASH', 'administrador');
+VALUES ('David', 'Docampo', 'admin@otec.com', '$2b$10$CONTRASEÑA_HASH', 'administrador' );
 
 -- Insert usuario de ejemplo
-INSERT INTO usuarios (nombre, email, password, rol)
+INSERT INTO usuarios (nombre, email, password, rol )
 VALUES ('Usuario de prueba', 'usuario@ejemplo.com', '$2b$10$/uy0nWX7sVC57pLlpf9NN.5ipEM4F55PPd8tHddii4aqGEcUGYKPi', 'estudiante');
 -- el passwor de este usuario de ejemplo es 1234 y le hice un hash con bcrypt desde el archivo "hashear_password.js" usando node hashear_password.js desde la terminal y cambias el "1234" por el password hasheado en el insert a la base de datos y en el Thunder Client usamos el texto plano "1234"
