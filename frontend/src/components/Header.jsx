@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaShoppingCart, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import logo from "../assets/images/logo2.png";
+import texto_logo from "../assets/images/text_logo_otecpng.png";
 import perfilDefault from "../assets/images/foto_perfil_ejemplo.png";
 
 export default function Header() {
@@ -24,29 +25,32 @@ export default function Header() {
           <img
             src={logo}
             alt="Logo OTEC"
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-12 h-11 rounded-full object-cover border-4 border-azul_base"
           />
         </Link>
-        <div className="text-sm text-gray-600">
-          <div className="flex items-center gap-1">
-            <FaPhoneAlt className="text-blue-500" /> +56 9 1234 5678
-          </div>
-          <div className="flex items-center gap-1">
-            <FaEnvelope className="text-blue-500" /> contacto@otec.cl
-          </div>
-        </div>
+        <img
+          src={texto_logo}
+          alt="Logo OTEC2"
+          className="w-120 h-11 object-cover"
+        />
       </div>
 
       {/* Íconos de sesión y carrito */}
       <div className="flex items-center gap-4">
         {!user && (
           <Link to="/login">
-            <FaUser size={20} />
+            <FaUser
+              size={20}
+              className="text-blue-500 hover:text-gray-500  transition-colors"
+            />
           </Link>
         )}
 
         <Link to="/carrito">
-          <FaShoppingCart size={20} />
+          <FaShoppingCart
+            size={20}
+            className="text-blue-500 hover:text-gray-500  transition-colors"
+          />
         </Link>
 
         {/* Si hay usuario logueado: mostrar imagen + logout */}

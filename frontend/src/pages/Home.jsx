@@ -1,30 +1,29 @@
 import React from "react";
 import CursosTipo from "./CursosTipo";
-import fondoHeader from "../assets/images/homepage_idea2.jpg";
+import fondoHeader from "../assets/images/CaPacitaciones OTEC.png";
 /* src/index.css o src/styles/index.css */
 import "../styles/colors.css";
 
 const Home = () => {
   return (
     <main className="bg-gray-100 min-h-screen">
-      {/* Sección con imagen de fondo */}
-      <section
-        className="relative h-[600px] bg-cover bg-center bg-no-repeat text-white px-4"
-        style={{
-          backgroundImage: `url(${fondoHeader})`,
-        }}
-      >
-        {/* Capa azul translúcida con desenfoque */}
-        <div className="absolute inset-0 bg-blue-900/60 "></div>
+      <section className="flex flex-col-reverse md:flex-row h-auto md:h-[850px]">
+        {/* Imagen a la izquierda (en escritorio) */}
+        <div
+          className="w-full md:w-1/2 h-64 md:h-auto bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${fondoHeader})`,
+          }}
+        ></div>
 
-        {/* Contenido encima del overlay */}
-        <div className="relative max-w-4xl mx-auto text-center z-10 pt-16 ">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 ">
+        {/* Texto a la derecha */}
+        <div className="w-full md:w-1/2 bg-blue-900 text-white flex flex-col justify-center items-center p-8 md:p-16 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">
             Bienvenido a DesarrolloCap
           </h1>
-          <p className="text-lg sm:text-xl ">
-            Descubre cursos diseñados para tu crecimiento profesional. Aprende,
-            mejora y avanza.
+          <p className="text-lg md:text-xl max-w-md">
+            Descubre cursos diseñados para potenciar tu crecimiento profesional.
+            Aprende, mejora y avanza.
           </p>
         </div>
       </section>

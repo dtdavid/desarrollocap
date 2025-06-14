@@ -16,7 +16,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-azul text-white p-2 flex justify-between px-4">
+    <nav className="bg-azul_oscuro text-white p-2 flex justify-between px-4">
       <div className="flex gap-4 items-center">
         {user ? (
           <>
