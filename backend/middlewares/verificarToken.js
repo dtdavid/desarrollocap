@@ -15,7 +15,9 @@ export const verificarToken = (req, res, next) => {
     // Verificamos el token usando la clave secreta
     // Si el token es válido, se decodifica y se guarda en req.user
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
     req.user = { id: decoded.id, rol: decoded.rol }; // Guardamos los datos necesarios del usuario para las rutas siguientes
+    
     next(); // pasa al siguienete middleware o ruta
   } catch (error) {
     return res.status(403).json({ error: "Token inválido o expirado" });
