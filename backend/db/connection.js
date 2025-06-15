@@ -2,13 +2,18 @@
 import pg from 'pg';
 const { Pool } = pg;
 
-// Creamos la instancia del pool con las variables de entorno
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+const pool = process.env.DB_URL
+  ? new Pool({
+      connectionString: process.env.DB_URL,
+      ssl: { rejectUnauthorized: false }, // necesario para Render
+    })
+  : new Pool({
+      user: process.env.DB_USER,
+      host: process.env.DB_HOST,
+      database: process.env.DB_DATABASE,
+      password: process.env.DB_PASSWORD,
+      port: process.env.DB_PORT,
+    });
 
 export default pool;
+
