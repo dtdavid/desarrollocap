@@ -9,7 +9,7 @@
     "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gabriel Carrasco, Patricia Hernández y David Docampo",
   "license": "ISC",
   "description": "",
   "dependencies": {
