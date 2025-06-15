@@ -44,6 +44,7 @@ CREATE TABLE Cursos (
 );
 
 
+
 -- Insert Cursos
 INSERT INTO Cursos (titulo, descripcion, categoria, nivel, precio, fecha_inicio, fecha_fin, duracion, disponible, modalidad, docencia, imagen, instructor_id, estado)   
 VALUES 
@@ -104,6 +105,7 @@ CREATE TABLE Mensajes (
     leido BOOLEAN DEFAULT FALSE
 );
 
+
 -- Insert Mensajes
 INSERT INTO Mensajes (remitente_id, destinatario_id, contenido)
 VALUES 
@@ -117,12 +119,17 @@ INSERT INTO Mensajes (remitente_id, destinatario_id, contenido)
 VALUES (19, 6, 'Hola, soy el usuario 1 enviando este mensaje de prueba');
 
 
+
 -- Insert de administrador
 INSERT INTO Usuarios (nombre, apellido, email, password, rol) 
+
 VALUES ('David', 'Docampo', 'admin3@otec.com', '$2b$10$4Ths6Jzc6bCz5vgtfsbu5ui75d6nQOuQ3RSoEVKyMcA7D63gRdkUC', 'administrador');
 
+VALUES ('David', 'Docampo', 'admin@otec.com', '$2b$10$CONTRASEÑA_HASH', 'administrador' );
+
+
 -- Insert usuario de ejemplo
-INSERT INTO usuarios (nombre, email, password, rol)
+INSERT INTO usuarios (nombre, email, password, rol )
 VALUES ('Usuario de prueba', 'usuario@ejemplo.com', '$2b$10$/uy0nWX7sVC57pLlpf9NN.5ipEM4F55PPd8tHddii4aqGEcUGYKPi', 'estudiante');
 -- el password de este usuario de ejemplo es 1234 y le hice un hash con bcrypt desde el archivo "hashear_password.js" usando node hashear_password.js desde la terminal y cambias el "1234" por el password hasheado en el insert a la base de datos y en el Thunder Client usamos el texto plano "1234"
 

@@ -18,7 +18,7 @@ const CursosTipo = () => {
       {cursos.map((curso) => (
         <section
           key={curso.id}
-          className="cursoCard bg-white rounded-xl shadow-md p-4 w-full h-full max-w-xs sm:max-w-sm lg:max-w-md min-h-[400px] flex flex-col justify-between space-y-4"
+          className="cursoCard bg-white rounded-xl object-cover border-2 border-azul_base shadow-md p-4 w-full h-full max-w-xs sm:max-w-sm lg:max-w-md min-h-[400px] flex flex-col justify-between space-y-4"
         >
           <header className="cursoCard-header flex flex-col sm:flex-row items-center sm:items-start gap-4">
             <img
