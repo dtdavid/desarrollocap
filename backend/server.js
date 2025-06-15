@@ -82,7 +82,7 @@ app.get('/', async (req, res) => {
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor Express escuchando en http://localhost:${PORT}`);
+    console.log(`Servidor en puerto ${PORT}`);
 });
 
 // Exportar la instancia de la app para pruebas con Supertest 
