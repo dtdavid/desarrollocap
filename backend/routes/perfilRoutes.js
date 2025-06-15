@@ -1,7 +1,7 @@
 // routes/perfilRoutes.js
 import express from "express";
 import { verificarToken } from "../middlewares/verificarToken.js";
-import { getPerfilUsuario } from "../controllers/usuariosController.js";
+import { getPerfilUsuario } from "../controllers/perfilController.js";
 
 const router = express.Router();
 
