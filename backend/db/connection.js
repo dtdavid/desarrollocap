@@ -2,9 +2,9 @@
 import pg from 'pg';
 const { Pool } = pg;
 
-const pool = process.env.DB_URL
+const pool = process.env.DATABASE_URL
   ? new Pool({
-      connectionString: process.env.DB_URL,
+      connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false }, // necesario para Render
     })
   : new Pool({
@@ -13,6 +13,7 @@ const pool = process.env.DB_URL
       database: process.env.DB_DATABASE,
       password: process.env.DB_PASSWORD,
       port: process.env.DB_PORT,
+      ssl: false
     });
 
 export default pool;
