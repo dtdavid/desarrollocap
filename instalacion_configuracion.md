@@ -48,3 +48,33 @@ npm run dev -- --host
 ```
 
 **Puedes usar tu móvil para ver el diseño en local, al ngresar la IP que te muestre en Network**
+
+#### Revisión manual de estructura en Git Bash
+
+```bash
+tree -L 2 backend
+```
+
+```bash
+ls backend/models
+ls backend/routes
+ls backend/controllers
+```
+
+#### Revisión manual de estructura en pwsh
+
+```powershell
+Get-ChildItem .\backend -Recurse | Format-Table FullName
+```
+
+ó
+
+```powershell
+Get-ChildItem .\backend -Directory
+```
+
+```powershell
+Get-ChildItem .\backend\models
+Get-ChildItem .\backend\routes
+Get-ChildItem .\backend\controllers
+```

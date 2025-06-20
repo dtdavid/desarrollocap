@@ -1,23 +1,27 @@
-import React, {useState} from "react";
-import { useContext } from "react";
 import { useCarrito } from "../context/CarritoContext";
 import { useNavigate } from "react-router-dom";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
-
+import { useUsuario } from "../context/UserContext";
 
 
 const Carrito = () => {
-  const { carrito, incrementarCantidad, disminuirCantidad, eliminarDelCarrito, vaciarCarrito } = useCarrito()
+ const { carrito, incrementarCantidad, disminuirCantidad, eliminarDelCarrito, vaciarCarrito } = useCarrito()
 
-  const navigate = useNavigate ()
+  const { agregarCurso } = useUsuario();
 
- 
+  const navigate = useNavigate();
+
+  const handleCompra = () => {
+    carrito.forEach((curso) => agregarCurso(curso.id));
+    vaciarCarrito();
+    alert("✅ ¡Tu curso fue tomado con éxito!");
+    navigate("/perfil");
+  };
   
   const totalGeneral = carrito.reduce ((total, curso)=>total + (curso.precio*curso.count),0)
 
 // metodo para realizar el pago
    
-
   const handlePayment = async () => {
     const token = localStorage.getItem("token")
     if (!token){
@@ -57,6 +61,7 @@ const Carrito = () => {
   
   return (
     <div className="max-w-4xl mx-auto p-6">
+
       <h1 className="text-3xl font-bold mb-4">Detalles del Carrito</h1>
 
       {carrito.length === 0 ? (
@@ -113,6 +118,7 @@ const Carrito = () => {
                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">          
                    Eliminar
                 </button>
+
                 </li>
                  ))}      
               </ul>
@@ -134,6 +140,15 @@ const Carrito = () => {
           >
             Vaciar carrito
           </button>
+          <div className="mt-6 flex justify-between items-center gap-4">
+            <button
+              onClick={handleCompra}
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+            >
+              Acceso a tus cursos
+            </button>
+            
+          </div>
         </>
       )}
     </div>

@@ -17,7 +17,7 @@ export const register = async (req, res) => {
     return res.status(400).json({ mensaje: "Las contraseñas no coinciden" });
   }
 
-  if (!["estudiante", "docente"].includes(rol)) {
+  if (!["estudiante", "docente", "administrador"].includes(rol)) {
     return res.status(400).json({ mensaje: "Rol inválido" });
   }
 
