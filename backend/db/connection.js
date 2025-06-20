@@ -1,5 +1,8 @@
 // db/connection.js
 import pg from 'pg';
+import dotenv from 'dotenv'
+
+dotenv.config()
 const { Pool } = pg;
 
 // Creamos la instancia del pool con las variables de entorno

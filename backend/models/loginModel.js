@@ -1,3 +1,4 @@
+//busca usuario en la base de datos
 // models/loginModel.js
 import pool from '../db/connection.js';
 

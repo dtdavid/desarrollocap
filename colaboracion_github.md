@@ -102,6 +102,13 @@ git push -u origin nombre-de-tu-rama
 
 9. Comandos útiles extra
 
+- ver que remotos se tienen configurados
+git remote -v
+
+- Cambiar repositorio raiz para insertar cambios en repositorio de github
+git remote set-url origin dirección gitHub del nuevo repositorio
+
+
 - Ver todas las ramas:
 
 ```bash

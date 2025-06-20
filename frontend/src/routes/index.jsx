@@ -11,6 +11,7 @@ import CursosTipo from "../pages/CursosTipo";
 import CursoDetalle from "../pages/CursoDetalle";
 import EditarPerfil from "../pages/EditarPerfil";
 import Certificados from "../pages/Certificados";
+import PagoConfirmado from "../pages/PagoConfirmado";
 
 import { categoriesData } from "../pages/comunidad/data";
 import Forum from "../pages/comunidad/Forum";
@@ -38,6 +39,7 @@ export default function AppRoutes() {
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/cursos/:tipo" element={<CursosTipo />} />
             <Route path="/curso/:id" element={<CursoDetalle />} />
+            <Route path="/confirmacion" element={<PagoConfirmado />} />
           </Routes>
         </main>
         <Footer />
