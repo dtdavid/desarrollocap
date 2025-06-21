@@ -6,6 +6,7 @@ export default defineConfig({
   base: '/', // Esto es CRUCIAL para Render
   server: {
     host: true,
+    strictPort: true,
   },
   build: {
     outDir: 'dist',

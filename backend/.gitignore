@@ -2,3 +2,5 @@
 node_modules
 dist
 hashear_password.js
+.admin_users.json
+.env.example

@@ -1,86 +1,71 @@
 // controllers/cursosController.js
-import {
-  obtenerCursos,
-  obtenerCursoPorId,
-  crearCurso,
-  actualizarCurso,
-  eliminarCurso
+import { 
+  insertarCursos,
+  insertarCursosDePrueba,
+  eliminarTodosCursos 
 } from '../models/cursoModel.js';
 
 /**
- * GET /api/cursos
+ * POST /api/test/cursos/insertar
+ * Inserta un curso de prueba hardcodeado (para desarrollo)
  */
-export const getCursos = async (req, res) => {
+export const insertarCursoTest = async (req, res) => {
   try {
-    const cursos = await obtenerCursos();
-    res.json(cursos);
+    const nuevoCurso = await insertarCursosDePrueba();
+    res.status(201).json({
+      success: true,
+      message: 'Curso de prueba insertado',
+      data: nuevoCurso[0] // Retorna solo el primero
+    });
   } catch (error) {
-    console.error('Error al obtener cursos:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    handleTestError(res, error);
   }
 };
 
 /**
- * GET /api/cursos/:id
+ * POST /api/test/cursos/migrar
+ * Inserta múltiples cursos desde un JSON (para migraciones)
  */
-export const getCursoById = async (req, res) => {
-  const { id } = req.params;
+export const migrarCursos = async (req, res) => {
   try {
-    const curso = await obtenerCursoPorId(id);
-    if (!curso) {
-      return res.status(404).json({ message: 'Curso no encontrado' });
+    if (!Array.isArray(req.body)) {
+      throw new Error('Se esperaba un array de cursos');
     }
-    res.json(curso);
+
+    const resultados = await insertarCursos(req.body);
+    res.status(201).json({
+      success: true,
+      message: `${resultados.length} cursos insertados`,
+      data: resultados
+    });
   } catch (error) {
-    console.error('Error al obtener el curso:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    handleTestError(res, error);
   }
 };
 
 /**
- * POST /api/cursos
+ * DELETE /api/test/cursos/reset
+ * Elimina todos los cursos (solo para testing)
  */
-export const postCurso = async (req, res) => {
+export const resetCursos = async (req, res) => {
   try {
-    const nuevoCurso = await crearCurso(req.body);
-    res.status(201).json(nuevoCurso);
+    await eliminarTodosCursos();
+    res.json({ 
+      success: true,
+      message: 'Todos los cursos fueron eliminados' 
+    });
   } catch (error) {
-    console.error('Error al crear el curso:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    handleTestError(res, error);
   }
 };
 
-/**
- * PUT /api/cursos/:id
- */
-export const putCurso = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const cursoActualizado = await actualizarCurso(id, req.body);
-    if (!cursoActualizado) {
-      return res.status(404).json({ message: 'Curso no encontrado' });
-    }
-    res.json(cursoActualizado);
-  } catch (error) {
-    console.error('Error al actualizar el curso:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
-  }
-};
-
-/**
- * DELETE /api/cursos/:id
- */
-export const deleteCurso = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const cursoEliminado = await eliminarCurso(id);
-    if (!cursoEliminado) {
-      return res.status(404).json({ message: 'Curso no encontrado' });
-    }
-    res.json({ message: 'Curso eliminado correctamente' });
-  } catch (error) {
-    console.error('Error al eliminar el curso:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
-  }
+// Helper para errores
+const handleTestError = (res, error) => {
+  console.error('[TEST ERROR]', error);
+  res.status(500).json({
+    success: false,
+    error: error.message,
+    stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+  });
 };
 
