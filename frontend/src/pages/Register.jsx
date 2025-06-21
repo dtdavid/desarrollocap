@@ -12,11 +12,20 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const validatePassword = (password) => {
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  return regex.test(password);
+};
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!nombre || !apellido || !email || !password || !password2) {
       return alert("Por favor completa todos los campos.");
+    }
+
+    if (!validatePassword(password)) {
+      return alert("La contraseña debe tener 8+ caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 caracter especial");
     }
 
     if (password !== password2) {
@@ -80,6 +89,9 @@ function Register() {
         >
           <option value="estudiante">Estudiante</option>
           <option value="docente">Docente</option>
+          {process.env.NODE_ENV === 'development' && ( // process.env.NODE_ENV define el entorno y solo aparece en desarrollo
+          <option value="administrador">Administrador</option>
+        )}
         </select>
 
         <input

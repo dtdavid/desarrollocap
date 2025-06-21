@@ -3,7 +3,10 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { obtenerUsuarioPorEmail } from '../models/loginModel.js';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'clave_secreta_por_defecto';
+if (!process.env.JWT_SECRET) throw new Error("Falta JWT_SECRET en .env");
+// Si no se define JWT_SECRET en el entorno, lanza un error
+const SECRET_KEY = process.env.JWT_SECRET 
+
 const EXPIRATION = process.env.JWT_EXPIRATION || '3h';
 
 export const login = async (req, res) => {

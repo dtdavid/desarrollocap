@@ -9,7 +9,10 @@ import {
 export const getInscripciones = async (req, res) => {
   try {
     const inscripciones = await obtenerInscripciones();
-    res.json(inscripciones);
+    res.json({
+      success: true,
+      data: inscripciones 
+    });
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener inscripciones' });
   }
@@ -21,7 +24,10 @@ export const getInscripcion = async (req, res) => {
     if (!inscripcion) {
       return res.status(404).json({ error: 'Inscripción no encontrada' });
     }
-    res.json(inscripcion);
+    res.json({
+      success: true,
+      data: inscripcion 
+    });
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener la inscripción' });
   }
@@ -30,7 +36,11 @@ export const getInscripcion = async (req, res) => {
 export const postInscripcion = async (req, res) => {
   try {
     const nueva = await crearInscripcion(req.body);
-    res.status(201).json(nueva);
+    res.status(201).json({
+      success: true,
+      data: nueva,
+      message: "Inscripción creada exitosamente"
+    });
   } catch (error) {
     res.status(500).json({ error: 'Error al crear la inscripción' });
   }
@@ -42,9 +52,14 @@ export const putInscripcion = async (req, res) => {
     if (!actualizada) {
       return res.status(404).json({ error: 'Inscripción no encontrada' });
     }
-    res.json(actualizada);
+    res.json({
+      success: true,
+      data: actualizada
+    });
   } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar la inscripción' });
+    res.status(500).json({
+
+      error: 'Error al actualizar la inscripción' });
   }
 };
 
@@ -56,6 +71,9 @@ export const deleteInscripcion = async (req, res) => {
     if (error.message === 'Inscripción no encontrada') {
       return res.status(404).json({ error: error.message });
     }
-    res.status(500).json({ error: 'Error al eliminar la inscripción' });
+    res.status(500).json({
+       success: false,
+       error: 'Error al eliminar la inscripción',
+       details: error.message });
   }
 };
