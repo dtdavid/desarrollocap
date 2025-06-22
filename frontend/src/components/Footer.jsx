@@ -7,8 +7,8 @@ import {
   FaMapMarkerAlt,
   FaClock,
 } from "react-icons/fa";
-import LogoDesarrolloCap from "../assets/images/logo2.png";
-
+// import LogoDesarrolloCap from "../assets/images/logo2.png";
+import LogoDesarrolloCap from "/images/logo2.png"; 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 

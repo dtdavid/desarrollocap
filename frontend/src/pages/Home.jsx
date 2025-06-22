@@ -1,6 +1,7 @@
 import React from "react";
 import CursosTipo from "./CursosTipo";
-import fondoHeader from "../assets/images/CaPacitaciones OTEC.png";
+// import fondoHeader from "../assets/images/CaPacitaciones OTEC.png";
+import fondoHeader from "/images/CaPacitaciones OTEC.png";
 /* src/index.css o src/styles/index.css */
 import "../styles/colors.css";
 
