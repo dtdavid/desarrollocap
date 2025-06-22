@@ -79,15 +79,8 @@ const toggle = (index) => {
         </div>
       ))}
     </div>
-
-
-
-
-
-
     </>
   
   )
 }
-
 export default PanelCurso

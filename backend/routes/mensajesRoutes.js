@@ -11,7 +11,8 @@ router.use(verificarToken);
 router.get('/', mensajesController.getMensajesPropios);
 
 // Obtener conversación con otro usuario
-router.get('/:otroId', mensajesController.getMensajes);
+//router.get('/:otroId', mensajesController.getMensajes);
+router.get('/usuario/:otroId', mensajesController.getMensajes);
 
 // Enviar mensaje
 router.post('/', mensajesController.postMensaje);

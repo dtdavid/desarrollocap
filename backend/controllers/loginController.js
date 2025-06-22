@@ -20,7 +20,7 @@ export const login = async (req, res) => {
     const usuario = await obtenerUsuarioPorEmail(email);
 
     if (!usuario || !usuario.password) {
-      return res.status(401).json({ mensaje: 'Credenciales inválidas' });
+      return res.status(401).json({ mensaje: 'Usuario no encontrado en base de datos' });
     }
 
     const passwordValida = await bcrypt.compare(password, usuario.password);
