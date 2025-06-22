@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { VscAccount, VscMail, VscCallIncoming } from "react-icons/vsc";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import ImagenPerfil from "../assets/images/perfilsf.jpg";
+// import ImagenPerfil from "../assets/images/perfilsf.jpg";
+import ImagenPerfil from "/images/perfilsf.jpg";
 
 function EditarPerfil() {
   const [nombre, setNombre] = useState("");

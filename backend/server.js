@@ -31,6 +31,8 @@ pool.query("SELECT NOW()", (err, res) => {
 });
 
 const app = express();
+
+//cambios después del Deploy en Render
 const PORT = process.env.PORT || 5000;
 const host = "RENDER" in process.env ? "0.0.0.0" : "localhost";
 
@@ -38,17 +40,16 @@ const host = "RENDER" in process.env ? "0.0.0.0" : "localhost";
 // 1. Configuración CORS dinámica 
 const allowedOrigins = [
   'https://desarrollocap.onrender.com',
+  'http://desarrollocap.onrender.com',
   process.env.NODE_ENV === 'development' && 'http://localhost:3000'
 ].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Permite peticiones sin origen solo en desarrollo
-    if (!origin && process.env.NODE_ENV === 'development') {
-      return callback(null, true);
-    }
+    // Permite peticiones sin origen (mobile apps, curl, etc)
+    if (!origin) return callback(null, true);
     
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
       callback(null, true);
     } else {
       console.error(`Origen bloqueado por CORS: ${origin}`);
@@ -57,8 +58,27 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     // Permite peticiones sin origen solo en desarrollo
+//     if (!origin && process.env.NODE_ENV === 'development') {
+//       return callback(null, true);
+//     }
+    
+//     if (allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       console.error(`Origen bloqueado por CORS: ${origin}`);
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use((req, res, next) => {
   console.log(`Solicitud recibida: ${req.method} ${req.originalUrl}`);
@@ -68,6 +88,12 @@ app.use((req, res, next) => {
 
 // Middleware para parsear JSON
 app.use(express.json());
+
+
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+}); 
 
 // Rutas del sistema
 app.use("/api/auth", loginRoutes); // /api/auth/login

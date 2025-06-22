@@ -1,6 +1,6 @@
 import { GoClock } from "react-icons/go";
-import ImagenCurso from '../assets/images/js.jpg'
-
+// import ImagenCurso from '../assets/images/js.jpg'
+import ImagenCurso from '/images/js.jpg'
 const Certificados = () => {
   
   return (
