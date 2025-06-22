@@ -3,6 +3,7 @@ import "dotenv/config"; // Cargar variables de entorno desde .env
 import express from "express";
 import cors from "cors";
 
+
 // Importamos las rutas
 import registerRoutes from "./routes/registerRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
@@ -33,12 +34,21 @@ const host = "RENDER" in process.env ? "0.0.0.0" : "localhost";
 // ⚠️ CORS: permite conexión solo desde el frontend
 const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
 
+app.use((req, res, next) => {
+  console.log(`📩 Solicitud recibida: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+
 app.use(
   cors({
     origin: frontendUrl,
     credentials: true,
+   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+   allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // Middleware para parsear JSON
 app.use(express.json());

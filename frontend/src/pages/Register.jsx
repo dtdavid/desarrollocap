@@ -31,7 +31,11 @@ function Register() {
         password,
         password2,
         rol,
-      });
+      },
+      {
+    withCredentials: true,
+      }
+    );
 
       const { token, usuario } = res.data;
       localStorage.setItem("token", token);

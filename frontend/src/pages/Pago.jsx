@@ -1,9 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Pago = ({ carrito, total }) => {
+const Pago = () => {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [metodoPago, setMetodoPago] = useState("tarjeta");
+  const [carrito, setCarrito] = useState([]);
+  const [total, setTotal] = useState(0);
+
+
+  useEffect(() => {
+    const carritoGuardado = localStorage.getItem("carrito");
+    const totalGuardado = localStorage.getItem("total");
+
+    if (carritoGuardado) setCarrito(JSON.parse(carritoGuardado));
+    if (totalGuardado) setTotal(parseInt(totalGuardado));
+  }, []);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +31,7 @@ const Pago = ({ carrito, total }) => {
 
     console.log("Procesando pago con:", datosPago);
     // Redireccionar o mostrar confirmación...
+     alert("Pago simulado realizado con éxito")
   };
 
   return (

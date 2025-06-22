@@ -26,6 +26,7 @@ const Carrito = () => {
     const token = localStorage.getItem("token")
     if (!token){
       alert ('Debes iniciar sesión para realizar el pago')
+      navigate ("/login")
       return
     }
     // crear los datos a enviar
@@ -47,10 +48,13 @@ const Carrito = () => {
         //si el pago es exitoso, es posible mostrar un mensaje o redirigir
         alert ('Pago exitoso.Gracias por tu compra!')
         vaciarCarrito()
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        localStorage.setItem("total", totalGeneral);
         navigate ("/pago")
             //en este punto es posible redirigir al usuario a una pagina de confirmación de pago
        } else {
         // si el backend retorna un error
+        navigate ("/login")
         alert (data?.error || 'Hubo un problema con el pago, por favor inténtalo nuevamente')
       }
       } catch (error) {
