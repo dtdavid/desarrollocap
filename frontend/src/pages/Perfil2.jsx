@@ -4,9 +4,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { VscAccount, VscMortarBoard, VscOrganization, VscGlobe, VscRepo, VscCalendar } from "react-icons/vsc";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
-import ImagenCursoReact from "../assets/images/react.png"
-import ImagenCursojs from "../assets/images/js.jpg"
-import ImagenCursopsql from "../assets/images/psql.png"
+// import ImagenCursoReact from "../assets/images/react.png"
+import ImagenCursoReact from "/images/react.png"
+// import ImagenCursojs from "../assets/images/js.jpg"
+import ImagenCursojs from "/images/js.jpg"
+// import ImagenCursopsql from "../assets/images/psql.png"
+import ImagenCursopsql from "/images/psql.png"
 
 const Perfil = () => {
   const navigate = useNavigate();
@@ -61,7 +64,7 @@ const Perfil = () => {
          <VscCalendar style={{ marginRight: '8px' }} /> <span> Término: 15 junio 2025 </span>
           </Card.Text>
 
-         <div className="mt-auto d-flex justify-content-center mt-5">
+         <div className="mt-auto d-flex justify-content-center ">
     <Button style={{ backgroundColor: '#F065AF', borderColor: '#F065AF' }}>
       <strong>Ir al curso</strong>
     </Button>
@@ -94,7 +97,7 @@ const Perfil = () => {
          <VscCalendar style={{ marginRight: '8px' }} /> <span> Término: 1 junio 2025 </span>
           </Card.Text>
 
-         <div className="mt-auto d-flex justify-content-center mt-4">
+         <div className="mt-auto d-flex justify-content-center">
     <Button style={{ backgroundColor: '#F065AF', borderColor: '#F065AF' }}>
       <strong>Ir al curso</strong>
     </Button>
@@ -126,7 +129,7 @@ const Perfil = () => {
          <VscCalendar style={{ marginRight: '8px' }} /> <span> Término: 30 junio 2025 </span>
           </Card.Text>
 
-         <div className=" mt-auto d-flex justify-content-center mt-4">
+         <div className=" mt-auto d-flex justify-content-center">
     <Button style={{ backgroundColor: '#F065AF', borderColor: '#F065AF' }}>
       <strong>Ir al curso</strong>
     </Button>

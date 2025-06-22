@@ -4,7 +4,7 @@ import {
   insertarCursoTest,
   migrarCursos,
   resetCursos 
-} from '../controllers/cursoTestController.js';
+} from '../controllers/cursosController.js';
 
 const router = express.Router();
 

@@ -1,9 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaShoppingCart, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import logo from "../assets/images/logo2.png";
-import texto_logo from "../assets/images/text_logo_otecpng.png";
-import perfilDefault from "../assets/images/foto_perfil_ejemplo.png";
+// import logo from "../assets/images/logo2.png";
+import logo from "/images/logo2.png";
+// import texto_logo from "../assets/images/text_logo_otecpng.png";
+import texto_logo from "/images/text_logo_otecpng.png";
+// import perfilDefault from "../assets/images/foto_perfil_ejemplo.png";
+import perfilDefault from "/images/foto_perfil_ejemplo.png";
 //import logoSecundario from "../assets/images/logo.png";
 import CarritoContext from "../context/CarritoContext";
 import { useContext } from "react";

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import API from "../api/axios";
 
 function Login() {
   const [email, setEmail] = useState(localStorage.getItem("savedEmail") || "");
@@ -19,8 +20,8 @@ function Login() {
     setIsLoading(true); // Mostrar spinner
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+      const response = await API.post(
+        "/auth/login",
         {
           email,
           password,
@@ -37,8 +38,8 @@ function Login() {
       localStorage.setItem("rol", payload.rol);
       localStorage.setItem("usuarioId", payload.id);
 
-      const perfilResponse = await axios.get(
-        `http://localhost:5000/api/usuarios/${payload.id}`,
+      const perfilResponse = await API.get(
+        `/usuarios/${payload.id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
