@@ -31,20 +31,34 @@ pool.query("SELECT NOW()", (err, res) => {
 });
 
 const app = express();
-// Bloque de seguridad para rutas de test (solo desarrollo)
-if (process.env.NODE_ENV === 'production') {
-  app.use('/api/test', (req, res) => res.status(403).json({
-    success: false,
-    error: 'Acceso prohibido en producción'
-  }));
-}
 const PORT = process.env.PORT || 5000;
 const host = "RENDER" in process.env ? "0.0.0.0" : "localhost";
-//CORS: en desarrollo, permite conexión solo desde localhost:3000
-//CORS: en producción, permite conexión solo desde el frontend
-const frontendUrl = process.env.NODE_ENV === 'production' 
-  ? 'https://desarrollocap.onrender.com' 
-  : 'http://localhost:3000';
+
+
+// 1. Configuración CORS dinámica 
+const allowedOrigins = [
+  'https://desarrollocap.onrender.com',
+  process.env.NODE_ENV === 'development' && 'http://localhost:3000'
+].filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Permite peticiones sin origen solo en desarrollo
+    if (!origin && process.env.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.error(`Origen bloqueado por CORS: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use((req, res, next) => {
   console.log(`📩 Solicitud recibida: ${req.method} ${req.originalUrl}`);
@@ -62,6 +76,7 @@ app.use(
 );
 
 
+
 // Middleware para parsear JSON
 app.use(express.json());
 
@@ -70,26 +85,27 @@ app.use("/api/auth", loginRoutes); // /api/auth/login
 app.use("/api/auth", registerRoutes); // /api/auth/register
 app.use("/api/test/cursos", cursoTestRoutes);
 
-app.use(verificarToken); // Middleware para verificar token en todas las rutas siguientes
-app.use("/api/perfil", perfilRoutes); // /api/perfil
-app.use("/api/usuarios", usuariosRoutes); // /api/usuarios
-app.use("/api/cursos", cursosRoutes); // /api/cursos
+// Middleware de autenticación (protege las rutas siguientes)
+app.use(verificarToken);
+app.use("/api/perfil", perfilRoutes);
+app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/cursos", cursosRoutes);
 app.use("/api/inscripciones", inscripcionesRoutes);
 app.use("/api/recursos", recursosRoutes);
 app.use("/api/evaluaciones", evaluacionesRoutes);
 app.use("/api/mensajes", mensajesRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", isAdmin, adminRoutes); // Solo admin
 
-// Ruta de prueba
+// Ruta de prueba (sin autenticación)
 app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW() AS current_time");
     res.json({
-      message: "✅ Backend de DesarrolloCap funcionando correctamente.",
+      message: "Backend de DesarrolloCap funcionando correctamente.",
       dbTime: result.rows[0].current_time,
     });
   } catch (err) {
-    console.error("❌ Error al conectar con la base de datos:", err.message);
+    console.error("Error al conectar con la base de datos:", err.message);
     res.status(500).json({ error: "Error interno del servidor." });
   }
 });
@@ -97,6 +113,8 @@ app.get("/", async (req, res) => {
 // Iniciar el servidor
 app.listen(PORT, host, () => {
   console.log(`Servidor corriendo en http://${host}:${PORT}`);
+  console.log(`Entorno: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Orígenes permitidos: ${allowedOrigins.join(', ')}`);
 });
 
 export default app;
