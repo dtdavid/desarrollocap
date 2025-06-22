@@ -1,8 +1,8 @@
-import { insertarCursoDePrueba } from '../models/cursoTestModel.js';
+import { insertarCursosDePrueba } from '../models/cursoModel.js';
 
 export const insertarCursoTest = async (req, res) => {
   try {
-    const nuevoCurso = await insertarCursoDePrueba();
+    const nuevoCurso = await insertarCursosDePrueba();
     res.status(201).json({
       mensaje: 'Curso de prueba insertado correctamente',
       curso: nuevoCurso

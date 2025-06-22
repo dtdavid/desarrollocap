@@ -13,7 +13,8 @@ cd tu-repo
 
 ```bash
 git checkout main               # Cambiar a la rama principal
-git pull origin main            # Traer y fusionar los últimos cambios remotos
+
+           # Traer y fusionar los últimos cambios remotos
 ```
 
 - Después creas una rama en tu terminal para trabajar sin machacar el repositorio:
