@@ -61,20 +61,9 @@ app.use(cors({
 }));
 
 app.use((req, res, next) => {
-  console.log(`📩 Solicitud recibida: ${req.method} ${req.originalUrl}`);
+  console.log(`Solicitud recibida: ${req.method} ${req.originalUrl}`);
   next();
 });
-
-
-app.use(
-  cors({
-    origin: frontendUrl,
-    credentials: true,
-   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-   allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
 
 
 // Middleware para parsear JSON
