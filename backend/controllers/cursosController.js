@@ -1,37 +1,42 @@
-// controllers/cursosController.js
 import { 
   insertarCursos,
   insertarCursosDePrueba,
   eliminarTodosCursos 
 } from '../models/cursoModel.js';
 
-/**
- * POST /api/test/cursos/insertar
- * Inserta un curso de prueba hardcodeado (para desarrollo)
- */
+// Helper para errores (compartido)
+const handleTestError = (res, error) => {
+  console.error('[TEST ERROR]', error);
+  res.status(500).json({
+    success: false,
+    error: error.message,
+    stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+  });
+};
+
+// Controladores principales (para rutas normales y test)
 export const insertarCursoTest = async (req, res) => {
+  if (process.env.NODE_ENV === 'production') {
+    return res.status(403).json({ success: false, error: 'Acción prohibida en producción' });
+  }
+
   try {
-    const nuevoCurso = await insertarCursosDePrueba();
+    const nuevosCursos = await insertarCursosDePrueba();
     res.status(201).json({
       success: true,
       message: 'Curso de prueba insertado',
-      data: nuevoCurso[0] // Retorna solo el primero
+      data: nuevosCursos[0] // Retorna solo el primero
     });
   } catch (error) {
     handleTestError(res, error);
   }
 };
 
-/**
- * POST /api/test/cursos/migrar
- * Inserta múltiples cursos desde un JSON (para migraciones)
- */
 export const migrarCursos = async (req, res) => {
   try {
     if (!Array.isArray(req.body)) {
       throw new Error('Se esperaba un array de cursos');
     }
-
     const resultados = await insertarCursos(req.body);
     res.status(201).json({
       success: true,
@@ -43,11 +48,11 @@ export const migrarCursos = async (req, res) => {
   }
 };
 
-/**
- * DELETE /api/test/cursos/reset
- * Elimina todos los cursos (solo para testing)
- */
 export const resetCursos = async (req, res) => {
+  if (process.env.NODE_ENV === 'production') {
+    return res.status(403).json({ success: false, error: 'Acción prohibida en producción' });
+  }
+
   try {
     await eliminarTodosCursos();
     res.json({ 
@@ -57,15 +62,5 @@ export const resetCursos = async (req, res) => {
   } catch (error) {
     handleTestError(res, error);
   }
-};
-
-// Helper para errores
-const handleTestError = (res, error) => {
-  console.error('[TEST ERROR]', error);
-  res.status(500).json({
-    success: false,
-    error: error.message,
-    stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-  });
 };
 
