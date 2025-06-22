@@ -78,3 +78,21 @@ export const eliminarTodosCursos = async () => {
   await pool.query('TRUNCATE TABLE cursos RESTART IDENTITY CASCADE');
 };
 
+export const insertarCursosMasivos = async (cursos) => {
+  const query = format(
+    `INSERT INTO cursos (
+      titulo, descripcion, categoria, precio, duracion, disponible
+    ) VALUES %L RETURNING *`,
+    cursos.map(curso => [
+      curso.titulo,
+      curso.descripcion,
+      curso.categoria,
+      curso.precio,
+      curso.duracion,
+      curso.disponible
+    ])
+  );
+  const { rows } = await pool.query(query);
+  return rows;
+};
+
