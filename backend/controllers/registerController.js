@@ -10,6 +10,7 @@ const EXPIRATION = process.env.JWT_EXPIRATION || '7d';
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 export const register = async (req, res) => {
+   console.log("➡️ Entrando al controlador de registro")
   const { nombre, apellido, email, password, password2, rol = "estudiante" } = req.body;
 
   if (!nombre || !apellido || !email || !password || !password2) {
@@ -46,7 +47,7 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const usuario = await insertarUsuario({ nombre, apellido, email, hashedPassword, rol });
+    const usuario = await insertarUsuario({ nombre, apellido, email, password: hashedPassword, rol });
 
     const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, SECRET_KEY, {
       expiresIn: EXPIRATION,
@@ -55,7 +56,9 @@ export const register = async (req, res) => {
     res.status(201).json({ token, usuario });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ mensaje: "Error interno del servidor" });
+    console.error("Error al registrar usuario:", err); // muestra todo el error
+res.status(500).json({ mensaje: err.detail || err.message || "Error interno del servidor" });
+
   }
 };
 

@@ -4,8 +4,15 @@ import { FiLogOut } from "react-icons/fi";
 import logo from "../assets/images/logo2.png";
 import texto_logo from "../assets/images/text_logo_otecpng.png";
 import perfilDefault from "../assets/images/foto_perfil_ejemplo.png";
+//import logoSecundario from "../assets/images/logo.png";
+import CarritoContext from "../context/CarritoContext";
+import { useContext } from "react";
 
 export default function Header() {
+
+const {carrito} = useContext (CarritoContext)
+  const cantidadCursos = carrito.reduce ((total, curso)=> total+ curso.count, 0)
+
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -46,11 +53,10 @@ export default function Header() {
           </Link>
         )}
 
-        <Link to="/carrito">
+        <Link to={"/carrito"} className="relative">
           <FaShoppingCart
-            size={20}
-            className="text-blue-500 hover:text-gray-500  transition-colors"
-          />
+            size={20}/>
+            {cantidadCursos > 0 && (<span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1"> {cantidadCursos}</span>)}          
         </Link>
 
         {/* Si hay usuario logueado: mostrar imagen + logout */}

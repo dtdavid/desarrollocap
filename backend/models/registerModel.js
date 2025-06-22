@@ -9,8 +9,9 @@ export const verificarEmailExistente = async (email) => {
 
 // Inserta un nuevo usuario y devuelve los datos seleccionados
 export const insertarUsuario = async ({ nombre, apellido, email, hashedPassword, rol }) => {
+
   const query = `
-    INSERT INTO Usuarios (nombre, apellido, email, password, rol)
+    INSERT INTO usuarios (nombre, apellido, email, password, rol)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING id, nombre, apellido, email, rol
   `;

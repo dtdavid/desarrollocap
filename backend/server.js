@@ -4,6 +4,7 @@ import "dotenv/config"; // Cargar variables de entorno desde .env
 import express from "express";
 import cors from "cors";
 
+
 // Importamos las rutas
 import registerRoutes from "./routes/registerRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
@@ -33,6 +34,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const host = "RENDER" in process.env ? "0.0.0.0" : "localhost";
 
+
 // 1. Configuración CORS dinámica 
 const allowedOrigins = [
   'https://desarrollocap.onrender.com',
@@ -57,6 +59,23 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+app.use((req, res, next) => {
+  console.log(`📩 Solicitud recibida: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+
+app.use(
+  cors({
+    origin: frontendUrl,
+    credentials: true,
+   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+   allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+
 
 // Middleware para parsear JSON
 app.use(express.json());
