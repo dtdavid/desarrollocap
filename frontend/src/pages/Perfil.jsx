@@ -10,7 +10,8 @@ import {
   VscRepo,
   VscCalendar,
 } from "react-icons/vsc";
-import fondoHeader from "../assets/images/textura_azul_oscuro.png";
+// import fondoHeader from "../assets/images/textura_azul_oscuro.png";
+import fondoHeader from "/images/textura_azul_oscuro.png";
 
 const Perfil = () => {
   const navigate = useNavigate();
