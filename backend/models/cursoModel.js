@@ -1,67 +1,80 @@
+// models/cursoModels.js
+
 import pool from '../db/connection.js';
+import format from 'pg-format';
 
 /**
- * Obtener todos los cursos disponibles
+ * Inserta múltiples cursos con validación
  */
-export const obtenerCursos = async () => {
-  const result = await pool.query('SELECT * FROM cursos WHERE disponible = true');
-  return result.rows;
+export const insertarCursos = async (cursos) => {
+  const validated = cursos.map(validateCurso);
+  const query = format(
+    `INSERT INTO cursos (
+      titulo, descripcion, categoria, nivel, precio,
+      fecha_inicio, fecha_fin, duracion, disponible,
+      modalidad, docencia, imagen, instructor_id, estado
+    ) VALUES %L RETURNING *`,
+    validated.map(curso => [
+      curso.titulo,
+      curso.descripcion,
+      curso.categoria,
+      curso.nivel,
+      curso.precio,
+      curso.fecha_inicio,
+      curso.fecha_fin,
+      curso.duracion,
+      curso.disponible,
+      curso.modalidad,
+      curso.docencia,
+      curso.imagen,
+      curso.instructor_id,
+      curso.estado
+    ])
+  );
+
+  const { rows } = await pool.query(query);
+  return rows;
 };
 
 /**
- * Obtener un curso por su ID
+ * Datos de prueba predeterminados
  */
-export const obtenerCursoPorId = async (id) => {
-  const result = await pool.query('SELECT * FROM cursos WHERE id = $1', [id]);
-  return result.rows[0];
+export const insertarCursosDePrueba = async () => {
+  const cursosDemo = [
+    {
+      titulo: "Curso de Prueba",
+      descripcion: "Descripción de ejemplo",
+      categoria: "Testing",
+      precio: 0,
+      duracion: "1 semana",
+      disponible: true
+    }
+  ];
+  return await insertarCursos(cursosDemo);
 };
 
 /**
- * Crear un nuevo curso
+ * Elimina todos los cursos (¡Cuidado en producción!)
  */
-export const crearCurso = async (cursoData) => {
-  const {
-    titulo, descripcion, categoria, nivel, precio,
-    fecha_inicio, fecha_fin, duracion, disponible,
-    modalidad, docencia, imagen, instructor_id, estado
-  } = cursoData;
-
-  const query = `
-    INSERT INTO cursos 
-    (titulo, descripcion, categoria, nivel, precio, fecha_inicio, fecha_fin, duracion, disponible, modalidad, docencia, imagen, instructor_id, estado)
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
-    RETURNING *;
-  `;
-
-  const result = await pool.query(query, [
-    titulo, descripcion, categoria, nivel, precio,
-    fecha_inicio, fecha_fin, duracion, disponible,
-    modalidad, docencia, imagen, instructor_id, estado
-  ]);
-
-  return result.rows[0];
+export const eliminarTodosCursos = async () => {
+  await pool.query('TRUNCATE TABLE cursos RESTART IDENTITY CASCADE');
 };
 
-/**
- * Actualizar un curso por ID
- */
-export const actualizarCurso = async (id, cursoData) => {
-  const campos = Object.keys(cursoData);
-  const valores = Object.values(cursoData);
-
-  const setClause = campos.map((campo, index) => `${campo} = $${index + 1}`).join(', ');
-
-  const query = `UPDATE cursos SET ${setClause} WHERE id = $${campos.length + 1} RETURNING *`;
-
-  const result = await pool.query(query, [...valores, id]);
-  return result.rows[0];
-};
-
-/**
- * Eliminar un curso por ID
- */
-export const eliminarCurso = async (id) => {
-  const result = await pool.query('DELETE FROM cursos WHERE id = $1 RETURNING *', [id]);
-  return result.rows[0];
-};
+// Validación de campos
+const validateCurso = (curso) => ({
+  titulo: curso.titulo || 'Sin título',
+  descripcion: curso.descripcion || '',
+  categoria: curso.categoria || 'General',
+  nivel: curso.nivel || 'Básico',
+  precio: Number(curso.precio) || 0,
+  fecha_inicio: curso.fechaInicio ? new Date(curso.fechaInicio) : new Date(),
+  fecha_fin: curso.fechaFin ? new Date(curso.fechaFin) : new Date(Date.now() + 604800000), // +7 días
+  duracion: curso.duracion || '4 semanas',
+  disponible: curso.disponible !== false,
+  modalidad: curso.modalidad || 'e-learning',
+  docencia: curso.docencia || 'Asincrónica',
+  imagen: curso.imagen || null,
+  instructor_id: curso.instructor_id || null,
+  estado: curso.estado || 'activo'
+});
 

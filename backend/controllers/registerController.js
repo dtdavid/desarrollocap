@@ -3,8 +3,11 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { verificarEmailExistente, insertarUsuario } from '../models/registerModel.js';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'clave_secreta_por_defecto';
+if (!process.env.JWT_SECRET) throw new Error("Falta JWT_SECRET en .env");
+const SECRET_KEY = process.env.JWT_SECRET 
+
 const EXPIRATION = process.env.JWT_EXPIRATION || '7d';
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 export const register = async (req, res) => {
    console.log("➡️ Entrando al controlador de registro")
@@ -18,6 +21,19 @@ export const register = async (req, res) => {
     return res.status(400).json({ mensaje: "Las contraseñas no coinciden" });
   }
 
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({ 
+      success: false,
+      error: "Requisitos contraseña:",
+      details: [
+        "Mínimo 8 caracteres",
+        "1 mayúscula",
+        "1 minúscula",
+        "1 número",
+        "1 carácter especial (@$!%*?&)"
+      ]
+   });
+  }
   if (!["estudiante", "docente", "administrador"].includes(rol)) {
     return res.status(400).json({ mensaje: "Rol inválido" });
   }

@@ -1,5 +1,6 @@
 // routes/cursosRoutes.js
 import express from 'express';
+import { verificarToken, isAdmin } from '../middlewares/verificarToken.js';
 import {
   getCursos,
   getCursoById,
@@ -10,11 +11,14 @@ import {
 
 const router = express.Router();
 
+// Rutas públicas
 router.get('/', getCursos);
 router.get('/:id', getCursoById);
-router.post('/', postCurso);
-router.put('/:id', putCurso);
-router.delete('/:id', deleteCurso);
+
+// Rutas protegidas
+router.post('/', verificarToken, isAdmin, postCurso);
+router.put('/:id', verificarToken, isAdmin, putCurso);
+router.delete('/:id', verificarToken, isAdmin, deleteCurso);
 
 export default router;
 
