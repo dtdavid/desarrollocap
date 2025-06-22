@@ -71,14 +71,14 @@ app.use("/api/auth", registerRoutes);
 app.use("/api/test/cursos", cursoTestRoutes);
 
 // Protected routes (require authentication)
-app.use(verificarToken);
-app.use("/api/perfil", perfilRoutes);
-app.use("/api/usuarios", usuariosRoutes);
-app.use("/api/cursos", cursosRoutes);
-app.use("/api/inscripciones", inscripcionesRoutes);
-app.use("/api/recursos", recursosRoutes);
-app.use("/api/evaluaciones", evaluacionesRoutes);
-app.use("/api/mensajes", mensajesRoutes);
+
+app.use("/api/perfil",verificarToken, perfilRoutes);
+app.use("/api/usuarios", verificarToken, usuariosRoutes);
+app.use("/api/cursos", verificarToken, cursosRoutes);
+app.use("/api/inscripciones", verificarToken,  inscripcionesRoutes);
+app.use("/api/recursos", verificarToken, recursosRoutes);
+app.use("/api/evaluaciones", verificarToken,  evaluacionesRoutes);
+app.use("/api/mensajes", verificarToken, mensajesRoutes);
 
 // Admin-only routes (require admin role)
 app.use("/api/admin", isAdmin, adminRoutes);
