@@ -16,6 +16,8 @@ import recursosRoutes from "./routes/recursosRoutes.js";
 import evaluacionesRoutes from "./routes/evaluacionesRoutes.js";
 import mensajesRoutes from "./routes/mensajesRoutes.js";
 import adminRoutes from './routes/adminRoutes.js';
+import pagoRoutes from './routes/pagoRoutes.js';
+import testRoutes from './routes/testRoutes.js';
 
 // Database connection
 import pool from "./db/connection.js";
@@ -79,6 +81,8 @@ app.use("/api/inscripciones", verificarToken,  inscripcionesRoutes);
 app.use("/api/recursos", verificarToken, recursosRoutes);
 app.use("/api/evaluaciones", verificarToken,  evaluacionesRoutes);
 app.use("/api/mensajes", verificarToken, mensajesRoutes);
+app.use ("/api", pagoRoutes)
+app.use ("/api", testRoutes)
 
 // Admin-only routes (require admin role)
 app.use("/api/admin", isAdmin, adminRoutes);
@@ -112,6 +116,9 @@ app.use((err, req, res, next) => {
     ...(process.env.NODE_ENV === 'development' && { details: err.message })
   });
 });
+
+
+
 
 // Start server
 app.listen(PORT, host, () => {

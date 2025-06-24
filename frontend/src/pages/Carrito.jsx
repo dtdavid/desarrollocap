@@ -46,7 +46,7 @@ const Carrito = () => {
       const data = await response.json ()
       if (response.ok) {
         //si el pago es exitoso, es posible mostrar un mensaje o redirigir
-        alert ('Pago exitoso.Gracias por tu compra!')
+      //  alert ('Pago exitoso.Gracias por tu compra!')
         vaciarCarrito()
         localStorage.setItem("carrito", JSON.stringify(carrito));
         localStorage.setItem("total", totalGeneral);

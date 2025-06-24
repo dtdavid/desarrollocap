@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Pago = () => {
   const [nombre, setNombre] = useState("");
@@ -7,6 +10,7 @@ const Pago = () => {
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
 
+ 
 
   useEffect(() => {
     const carritoGuardado = localStorage.getItem("carrito");
@@ -16,9 +20,15 @@ const Pago = () => {
     if (totalGuardado) setTotal(parseInt(totalGuardado));
   }, []);
 
-
+ const navigate = useNavigate();
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+  if (!nombre || !email || !metodoPago) {
+    alert("Por favor completa todos los campos.");
+    return;
+  }
 
     // Aquí iría el llamado a la API o pasarela de pago
     const datosPago = {
@@ -32,6 +42,8 @@ const Pago = () => {
     console.log("Procesando pago con:", datosPago);
     // Redireccionar o mostrar confirmación...
      alert("Pago simulado realizado con éxito")
+
+    navigate ("/confirmacion")
   };
 
   return (

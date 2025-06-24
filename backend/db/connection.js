@@ -3,6 +3,9 @@ import pg from 'pg';
 import dotenv from 'dotenv'
 
 dotenv.config()
+
+console.log("Conectando a la base:", process.env.DATABASE_URL);
+
 const { Pool } = pg;
 
 const pool = process.env.DATABASE_URL
