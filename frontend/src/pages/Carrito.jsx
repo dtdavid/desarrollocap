@@ -11,12 +11,6 @@ const Carrito = () => {
 
   const navigate = useNavigate();
 
-  const handleCompra = () => {
-    carrito.forEach((curso) => agregarCurso(curso.id));
-    vaciarCarrito();
-    alert("✅ ¡Tu curso fue tomado con éxito!");
-    navigate("/perfil");
-  };
   
   const totalGeneral = carrito.reduce ((total, curso)=>total + (curso.precio*curso.count),0)
 
@@ -45,12 +39,13 @@ const Carrito = () => {
       })
       const data = await response.json ()
       if (response.ok) {
-        //si el pago es exitoso, es posible mostrar un mensaje o redirigir
-      //  alert ('Pago exitoso.Gracias por tu compra!')
-        vaciarCarrito()
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-        localStorage.setItem("total", totalGeneral);
+            localStorage.setItem("total", totalGeneral);
         navigate ("/pago")
+
+           localStorage.setItem("carrito", JSON.stringify(carrito));
+      vaciarCarrito()
+        
+       
             //en este punto es posible redirigir al usuario a una pagina de confirmación de pago
        } else {
         // si el backend retorna un error
@@ -144,15 +139,7 @@ const Carrito = () => {
           >
             Vaciar carrito
           </button>
-          <div className="mt-6 flex justify-between items-center gap-4">
-            <button
-              onClick={handleCompra}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-            >
-              Acceso a tus cursos
-            </button>
-            
-          </div>
+       
         </>
       )}
     </div>

@@ -10,7 +10,7 @@ const Pago = () => {
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
 
- 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const carritoGuardado = localStorage.getItem("carrito");
@@ -20,10 +20,11 @@ const Pago = () => {
     if (totalGuardado) setTotal(parseInt(totalGuardado));
   }, []);
 
- const navigate = useNavigate();
+
  
   const handleSubmit = (e) => {
     e.preventDefault();
+     console.log("Formulario enviado");
     
   if (!nombre || !email || !metodoPago) {
     alert("Por favor completa todos los campos.");
@@ -40,12 +41,19 @@ const Pago = () => {
     };
 
     console.log("Procesando pago con:", datosPago);
-    // Redireccionar o mostrar confirmación...
-     alert("Pago simulado realizado con éxito")
 
-    navigate ("/confirmacion")
-  };
-
+ // Guardar datos antes de redirigir
+  try {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("total", total);
+     console.log("✅ Datos guardados en localStorage");
+     } catch (err) {
+    console.error("❌ Error al guardar en localStorage:", err);
+  } 
+  console.log("Redirigiendo a /confirmacion")
+  navigate("/confirmacion");
+  }
+console.log("Renderizando componente Pago")
   return (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Página de Pago</h1>
